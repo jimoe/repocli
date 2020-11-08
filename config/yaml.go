@@ -26,7 +26,12 @@ type Editor struct {
 }
 
 func loadYaml() (YamlConfig, error) {
-	filename := fmt.Sprintf("./%s.yml", os.Args[0])
+	ex, err := os.Executable()
+	if err != nil {
+		return YamlConfig{}, fmt.Errorf("could not find executable: %w", err)
+	}
+
+	filename := fmt.Sprintf("%s.yml", ex)
 
 	f, err := os.Open(filename)
 	if err != nil {
@@ -40,8 +45,6 @@ func loadYaml() (YamlConfig, error) {
 	if err != nil {
 		return YamlConfig{}, fmt.Errorf("coould new decode yaml: %w", err)
 	}
-
-	// fmt.Printf("-------------------------------- yaml: %#v\n\n", cfg)
 
 	return cfg, nil
 }

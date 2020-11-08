@@ -1,24 +1,21 @@
 package config
 
 type Config struct {
-	EnvConfig
+	CliConfig
 	YamlConfig
 }
 
 var Cfg Config
 
 func Load() (Config, error) {
-	env, err := LoadEnv()
-	if err != nil {
-		return Config{}, err
-	}
+	cli := getCliConfig()
 
 	yaml, err := loadYaml()
 	if err != nil {
 		return Config{}, err
 	}
 
-	Cfg = Config{env, yaml}
+	Cfg = Config{cli, yaml}
 	// fmt.Printf("++++++++++++++++++++++ %#v\n\n", Cfg)
 	// fmt.Println("++++", Cfg.SourceHome)
 
