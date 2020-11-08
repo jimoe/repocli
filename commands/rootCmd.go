@@ -19,7 +19,7 @@ Help:
 
 	rootCmd := &cobra.Command{
 		Use:     cfg.CliName,
-		Version: "dummy",
+		Version: cfg.Version,
 		Short:   "Cli to handle repoes",
 		Long:    longDescription,
 	}

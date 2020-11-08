@@ -1,14 +1,16 @@
 package config
 
 type CliConfig struct {
-	CliName    string `envconfig:"CLI_NAME" required:"true"`
-	SourceHome string `envconfig:"SOURCE_HOME" required:"true"`
-	BinHome    string `envconfig:"BIN_HOME" required:"true"`
+	CliName    string
+	Version    string
+	SourceHome string
+	BinHome    string
 }
 
 func getCliConfig() CliConfig {
 	return CliConfig{
 		CliName:    "editorAndChangeDirTest",
+		Version:    "v1.0.0",
 		SourceHome: "/home/jim/code/privat/editor-and-change-dir/",
 		BinHome:    "/home/jim/bin/",
 	}

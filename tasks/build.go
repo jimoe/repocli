@@ -8,14 +8,7 @@ import (
 	"github.com/jimoe/editor-and-change-dir/execute"
 )
 
-func Build(service string) {
-	switch service {
-	case "cli":
-		buildCli()
-	}
-}
-
-func buildCli() {
+func Build() {
 	// Howto build cli manually when developing cli: `go build -o ~/bin/editorAndChangeDirTest cmd/main.go`
 	color.Println("Building cli...")
 
