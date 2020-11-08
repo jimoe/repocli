@@ -6,20 +6,20 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/jimoe/editor-and-change-dir/aliases"
 	"github.com/jimoe/editor-and-change-dir/config"
-	"github.com/jimoe/editor-and-change-dir/validate"
 )
 
 func Execute(cfg config.Config) {
 	var longDescription = fmt.Sprintf(`Cli to simplify jobs regarding repoes.
 
-An alias my only contain the characters ½[2]s
+An <alias> my only contain the characters ½[2]s
 
 Help:
 	%[1]s help [command]
 `,
 		cfg.CliName,
-		validate.ValidAliasChars)
+		aliases.ValidAliasChars)
 
 	rootCmd := &cobra.Command{
 		Use:     cfg.CliName,

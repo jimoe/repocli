@@ -5,10 +5,10 @@ import (
 
 	"github.com/spf13/cobra"
 
+	"github.com/jimoe/editor-and-change-dir/aliases"
 	"github.com/jimoe/editor-and-change-dir/color"
 	"github.com/jimoe/editor-and-change-dir/config"
 	"github.com/jimoe/editor-and-change-dir/tasks"
-	"github.com/jimoe/editor-and-change-dir/validate"
 )
 
 func getDirCmd(cfg config.Config) *cobra.Command {
@@ -21,8 +21,8 @@ func getDirCmd(cfg config.Config) *cobra.Command {
 		DisableFlagsInUseLine: true,
 
 		Run: func(cmd *cobra.Command, args []string) {
-			alias := args[0]
-			if err := validate.Alias(alias); err != nil {
+			alias := aliases.Alias(args[0])
+			if err := alias.Validate(); err != nil {
 				color.Red.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
 				os.Exit(1)
