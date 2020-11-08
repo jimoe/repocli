@@ -24,9 +24,9 @@ Help:
 		Long:    longDescription,
 	}
 
-	rootCmd.AddCommand(buildCmd)
-	rootCmd.AddCommand(getDirCmd)
-	rootCmd.AddCommand(editorCmd)
+	rootCmd.AddCommand(buildCmd(cfg))
+	rootCmd.AddCommand(getDirCmd(cfg))
+	rootCmd.AddCommand(editorCmd(cfg))
 
 	err := rootCmd.Execute()
 	if err != nil {
