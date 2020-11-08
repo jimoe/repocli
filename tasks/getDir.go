@@ -3,11 +3,11 @@ package tasks
 import (
 	"fmt"
 
-	. "github.com/jimoe/editor-and-change-dir/config"
+	"github.com/jimoe/editor-and-change-dir/config"
 )
 
-func GetDir(alias string) {
-	for _, repo := range Cfg.Repoes {
+func GetDir(cfg config.Config, alias string) {
+	for _, repo := range cfg.Repoes {
 		if repo.Name == alias || exsists(alias, repo.Aliases) {
 			// send the path to bash so it can cd to it
 			fmt.Println(repo.Path)

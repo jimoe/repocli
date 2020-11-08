@@ -19,7 +19,7 @@ func buildCmd(cfg config.Config) *cobra.Command {
 		DisableFlagsInUseLine: true,
 
 		Run: func(cmd *cobra.Command, args []string) {
-			tasks.Build()
+			tasks.Build(cfg)
 		},
 	}
 }

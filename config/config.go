@@ -5,8 +5,6 @@ type Config struct {
 	YamlConfig
 }
 
-var Cfg Config
-
 func Load() (Config, error) {
 	cli := getCliConfig()
 
@@ -15,9 +13,6 @@ func Load() (Config, error) {
 		return Config{}, err
 	}
 
-	Cfg = Config{cli, yaml}
-	// fmt.Printf("++++++++++++++++++++++ %#v\n\n", Cfg)
-	// fmt.Println("++++", Cfg.SourceHome)
-
-	return Cfg, nil
+	cfg := Config{cli, yaml}
+	return cfg, nil
 }
