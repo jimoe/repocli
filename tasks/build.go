@@ -2,17 +2,27 @@ package tasks
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
 
 	"github.com/jimoe/editor-and-change-dir/color"
 	"github.com/jimoe/editor-and-change-dir/config"
-	"github.com/jimoe/editor-and-change-dir/execute"
 )
 
 func Build(cfg config.Config) {
 	// Howto build cli manually when developing cli: `go build -o ~/bin/editorAndChangeDirTest cmd/main.go`
 	color.Println("Building cli...")
 
-	binPath := fmt.Sprintf("%s%s", cfg.BinHome, cfg.CliName)
-	runDir := cfg.SourceHome
-	execute.Run(runDir, "go", "build", "-o", binPath, "cmd/main.go")
+	outputFile := fmt.Sprintf("%s%s", cfg.BinHome, cfg.CliName)
+
+	cmd := exec.Command("go", "build", "-o", outputFile, "cmd/main.go")
+	cmd.Dir = cfg.SourceHome
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+
+	if err := cmd.Run(); err != nil {
+		color.Red.Printf("Error: Failed to build cli: %w\n", err)
+		os.Exit(1)
+	}
 }
