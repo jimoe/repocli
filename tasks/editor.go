@@ -6,7 +6,6 @@ import (
 	"os/exec"
 
 	"github.com/jimoe/editor-and-change-dir/aliases"
-	"github.com/jimoe/editor-and-change-dir/color"
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
@@ -31,7 +30,7 @@ func Editor(cfg config.Config, alias aliases.Alias) {
 	cmd.Stderr = nil
 
 	if err := cmd.Start(); err != nil {
-		color.Red.Printf("Error: Failed to start editor (%s) for '%s': %w\n", repo.Editor, repo.Name, err)
+		fmt.Printf("Error: Failed to start editor (%s) for '%s': %w\n", repo.Editor, repo.Name, err)
 		os.Exit(1)
 	}
 

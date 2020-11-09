@@ -5,13 +5,12 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/jimoe/editor-and-change-dir/color"
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
 func Build(cfg config.Config) {
 	// Howto build cli manually when developing cli: `go build -o ~/bin/editorAndChangeDirTest cmd/main.go`
-	color.Println("Building cli...")
+	fmt.Println("Building cli...")
 
 	outputFile := fmt.Sprintf("%s%s", cfg.BinHome, cfg.CliName)
 
@@ -22,7 +21,7 @@ func Build(cfg config.Config) {
 	cmd.Stderr = os.Stderr
 
 	if err := cmd.Run(); err != nil {
-		color.Red.Printf("Error: Failed to build cli: %w\n", err)
+		fmt.Printf("Error: Failed to build cli: %w\n", err)
 		os.Exit(1)
 	}
 }
