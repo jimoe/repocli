@@ -12,7 +12,7 @@ import (
 func buildCmd(cfg config.Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   fmt.Sprintf("build"),
-		Short: "Rebuild this cli",
+		Short: "Rebuild this cli from source",
 
 		Args: cobra.ExactArgs(0),
 

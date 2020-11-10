@@ -13,8 +13,8 @@ import (
 
 func editorCmd(cfg config.Config) *cobra.Command {
 	return &cobra.Command{
-		Use:   fmt.Sprintf(`editor <aliases>`),
-		Short: "Open repo associated with <aliases> in the correct editor",
+		Use:   fmt.Sprintf(`editor <alias>`),
+		Short: "Open repo associated with <alias> in the editor defined in the repo-config",
 
 		Args: cobra.ExactArgs(1),
 

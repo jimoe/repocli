@@ -10,22 +10,32 @@ import (
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
+const longDescription = `Cli to simplify jobs regarding repoes.
+
+An <alias> may only contain the characters %[1]s
+
+Yaml config
+Place config in same dir and same name as executable. Just add '.yml' to the filename
+example:
+
+repoes:
+  - name:    some-repo-name
+    path:    /home/username/code/some-repo-name
+    editor:  goland
+    aliases:
+      - some
+			- some-repo
+  - name:    another-repo-name
+    path:    /home/username/code/another-repo-name
+    editor:  code
+`
+
 func Execute(cfg config.Config) {
-	var longDescription = fmt.Sprintf(`Cli to simplify jobs regarding repoes.
-
-An <alias> my only contain the characters ½[2]s
-
-Help:
-	%[1]s help [command]
-`,
-		cfg.CliName,
-		aliases.ValidAliasChars)
-
 	rootCmd := &cobra.Command{
 		Use:     cfg.CliName,
 		Version: cfg.Version,
 		Short:   "Cli to handle repoes",
-		Long:    longDescription,
+		Long:    fmt.Sprintf(longDescription, aliases.ValidAliasChars),
 	}
 
 	rootCmd.AddCommand(buildCmd(cfg))
