@@ -7,9 +7,9 @@ import (
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
-func GetDir(cfg config.Config, alias aliases.Alias) {
+func GetDir(cfg *config.Config, alias aliases.Alias) {
 	var found bool
-	var repo config.Repo
+	var repo *config.Repo
 	if found, repo = cfg.GetRepo(alias); !found {
 		fmt.Printf("  -- '%s' is not in config", alias)
 		return

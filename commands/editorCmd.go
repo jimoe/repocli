@@ -11,7 +11,7 @@ import (
 	"github.com/jimoe/editor-and-change-dir/tasks"
 )
 
-func editorCmd(cfg config.Config) *cobra.Command {
+func editorCmd(cfg *config.Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   fmt.Sprintf(`editor <alias>`),
 		Short: "Open repo associated with <alias> in the editor defined in the repo-config",

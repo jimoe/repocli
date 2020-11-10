@@ -11,19 +11,19 @@ type Config struct {
 	YamlConfig
 }
 
-func Load() (Config, error) {
+func Load() (*Config, error) {
 	cli := getCliConfig()
 
 	yaml, err := loadYaml()
 	if err != nil {
-		return Config{}, fmt.Errorf("yaml: %w", err)
+		return &Config{}, fmt.Errorf("yaml: %w", err)
 	}
 
-	cfg := Config{cli, yaml}
+	cfg := &Config{cli, yaml}
 	return cfg, nil
 }
 
-func (cfg *Config) GetRepo(theAlias aliases.Alias) (bool, Repo) {
+func (cfg *Config) GetRepo(theAlias aliases.Alias) (bool, *Repo) {
 	alias := theAlias.String()
 
 	for _, r := range cfg.Repoes {
@@ -37,5 +37,5 @@ func (cfg *Config) GetRepo(theAlias aliases.Alias) (bool, Repo) {
 		}
 	}
 
-	return false, Repo{}
+	return false, &Repo{}
 }

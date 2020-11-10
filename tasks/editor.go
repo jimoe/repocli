@@ -4,26 +4,23 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
 	"github.com/jimoe/editor-and-change-dir/aliases"
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
-func Editor(cfg config.Config, alias aliases.Alias) {
+func Editor(cfg *config.Config, alias aliases.Alias) {
 	var found bool
-	var repo config.Repo
+	var repo *config.Repo
 	if found, repo = cfg.GetRepo(alias); !found {
 		fmt.Printf("  -- '%s' is not in config", alias)
 		return
 	}
 
-	paramDir := getParamDir(repo.Editor, repo.Path)
-	if paramDir == "" {
-		fmt.Printf("  -- Unknown editor: '%s'", repo.Editor)
-		return
-	}
+	editor, params := getEditor(cfg.Editors, repo)
 
-	cmd := exec.Command(repo.Editor, paramDir)
+	cmd := exec.Command(editor, params...)
 	cmd.Dir = repo.Path
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = nil
@@ -38,15 +35,14 @@ func Editor(cfg config.Config, alias aliases.Alias) {
 	fmt.Println(repo.Path)
 }
 
-func getParamDir(editor string, path string) string {
-	switch editor {
-	case "webstorm":
-		return path
-	case "goland":
-		return path
-	case "code":
-		return "."
-	default:
-		return ""
+// We validate the config on startup, so we know there will be an editor to find
+func getEditor(editors []*config.Editor, repo *config.Repo) (editorName string, params []string) {
+	for _, e := range editors {
+		if e.Name == repo.Editor {
+			paramStr := strings.ReplaceAll(e.Params, "<path>", repo.Path)
+			return e.Name, strings.Split(paramStr, " ")
+		}
 	}
+
+	return
 }

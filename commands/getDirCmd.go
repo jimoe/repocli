@@ -11,7 +11,7 @@ import (
 	"github.com/jimoe/editor-and-change-dir/tasks"
 )
 
-func getDirCmd(cfg config.Config) *cobra.Command {
+func getDirCmd(cfg *config.Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   "getdir <alias>",
 		Short: `Get the homedir of the repo associated with the given <alias>`,

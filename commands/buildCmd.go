@@ -9,7 +9,7 @@ import (
 	"github.com/jimoe/editor-and-change-dir/tasks"
 )
 
-func buildCmd(cfg config.Config) *cobra.Command {
+func buildCmd(cfg *config.Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   fmt.Sprintf("build"),
 		Short: "Rebuild this cli from source",

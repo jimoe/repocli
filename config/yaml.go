@@ -8,8 +8,8 @@ import (
 )
 
 type YamlConfig struct {
-	Editors []Editor `yaml:"editors"`
-	Repoes  []Repo   `yaml:"repoes"`
+	Editors []*Editor `yaml:"editors"`
+	Repoes  []*Repo   `yaml:"repoes"`
 }
 
 type Repo struct {
@@ -20,8 +20,8 @@ type Repo struct {
 }
 
 type Editor struct {
-	Name string `yaml:"name"`
-	Path string `yaml:"path"`
+	Name   string `yaml:"name"`
+	Params string `yaml:"params"`
 }
 
 func loadYaml() (YamlConfig, error) {
@@ -54,6 +54,12 @@ func loadYaml() (YamlConfig, error) {
 }
 
 func (ycfg *YamlConfig) Validate() error {
+	for _, e := range ycfg.Editors {
+		if e.Name == "" {
+			return fmt.Errorf("missing name in editor: %v", e)
+		}
+	}
+
 	for _, r := range ycfg.Repoes {
 		if r.Name == "" {
 			return fmt.Errorf("missing 'name' in repo: %v", r)
@@ -63,6 +69,17 @@ func (ycfg *YamlConfig) Validate() error {
 		}
 		if r.Path == "" {
 			return fmt.Errorf("missing 'path' in repo: %v", r)
+		}
+
+		var found bool
+		for _, e := range ycfg.Editors {
+			if r.Editor == e.Name {
+				found = true
+				break
+			}
+		}
+		if !found {
+			return fmt.Errorf("editor in repo not found in editor-list: %s", r.Editor)
 		}
 	}
 

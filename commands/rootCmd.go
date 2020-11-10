@@ -16,8 +16,14 @@ An <alias> may only contain the characters %[1]s
 
 Yaml config
 Place config in same dir and same name as executable. Just add '.yml' to the filename
+for editors: if params is <path> then use repo path as param when starting editor
 example:
 
+editors:
+	-	name: goland
+		params: nosplash <path>
+	- name: code
+		params: .
 repoes:
   - name:    some-repo-name
     path:    /home/username/code/some-repo-name
@@ -30,7 +36,7 @@ repoes:
     editor:  code
 `
 
-func Execute(cfg config.Config) {
+func Execute(cfg *config.Config) {
 	rootCmd := &cobra.Command{
 		Use:     cfg.CliName,
 		Version: cfg.Version,

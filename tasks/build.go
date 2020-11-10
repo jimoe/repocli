@@ -8,7 +8,7 @@ import (
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
-func Build(cfg config.Config) {
+func Build(cfg *config.Config) {
 	// Howto build cli manually when developing cli: `go build -o ~/bin/editorAndChangeDir cmd/main.go`
 	fmt.Println("Building cli...")
 
