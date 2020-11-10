@@ -8,7 +8,6 @@ import (
 )
 
 type YamlConfig struct {
-	Test    string   `yaml:"test"`
 	Editors []Editor `yaml:"editors"`
 	Repoes  []Repo   `yaml:"repoes"`
 }
@@ -43,8 +42,29 @@ func loadYaml() (YamlConfig, error) {
 	decoder := yaml.NewDecoder(f)
 	err = decoder.Decode(&cfg)
 	if err != nil {
-		return YamlConfig{}, fmt.Errorf("coould new decode yaml: %w", err)
+		return YamlConfig{}, fmt.Errorf("could new decode yaml: %w", err)
+	}
+
+	err = cfg.Validate()
+	if err != nil {
+		return YamlConfig{}, fmt.Errorf("could not validate yaml: %w", err)
 	}
 
 	return cfg, nil
+}
+
+func (ycfg *YamlConfig) Validate() error {
+	for _, r := range ycfg.Repoes {
+		if r.Name == "" {
+			return fmt.Errorf("missing 'name' in repo: %v", r)
+		}
+		if r.Editor == "" {
+			return fmt.Errorf("missing 'editor' in repo: %v", r)
+		}
+		if r.Path == "" {
+			return fmt.Errorf("missing 'path' in repo: %v", r)
+		}
+	}
+
+	return nil
 }

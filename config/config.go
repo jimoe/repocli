@@ -1,6 +1,8 @@
 package config
 
 import (
+	"fmt"
+
 	"github.com/jimoe/editor-and-change-dir/aliases"
 )
 
@@ -14,7 +16,7 @@ func Load() (Config, error) {
 
 	yaml, err := loadYaml()
 	if err != nil {
-		return Config{}, err
+		return Config{}, fmt.Errorf("yaml: %w", err)
 	}
 
 	cfg := Config{cli, yaml}
