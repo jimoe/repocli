@@ -9,7 +9,7 @@ import (
 )
 
 func Build(cfg config.Config) {
-	// Howto build cli manually when developing cli: `go build -o ~/bin/editorAndChangeDirTest cmd/main.go`
+	// Howto build cli manually when developing cli: `go build -o ~/bin/editorAndChangeDir cmd/main.go`
 	fmt.Println("Building cli...")
 
 	outputFile := fmt.Sprintf("%s%s", cfg.BinHome, cfg.CliName)

@@ -9,7 +9,7 @@ type CliConfig struct {
 
 func getCliConfig() CliConfig {
 	return CliConfig{
-		CliName:    "editorAndChangeDirTest",
+		CliName:    "editorAndChangeDir",
 		Version:    "v1.0.0",
 		SourceHome: "/home/jim/code/privat/editor-and-change-dir/",
 		BinHome:    "/home/jim/bin/",
