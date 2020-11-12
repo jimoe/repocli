@@ -7,8 +7,8 @@ import (
 )
 
 type Config struct {
-	CliConfig
-	YamlConfig
+	*CliConfig
+	*YamlConfig
 }
 
 func Load() (*Config, error) {

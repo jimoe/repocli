@@ -7,8 +7,8 @@ type CliConfig struct {
 	BinHome    string
 }
 
-func getCliConfig() CliConfig {
-	return CliConfig{
+func getCliConfig() *CliConfig {
+	return &CliConfig{
 		CliName:    "editorAndChangeDir",
 		Version:    "v1.0.0",
 		SourceHome: "/home/jim/code/privat/editor-and-change-dir/",

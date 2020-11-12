@@ -13,10 +13,12 @@ type YamlConfig struct {
 }
 
 type Repo struct {
-	Name    string   `yaml:"name"`
-	Editor  string   `yaml:"editor"`
-	Path    string   `yaml:"path"`
-	Aliases []string `yaml:"aliases"`
+	Name     string         `yaml:"name"`
+	Path     string         `yaml:"path"`
+	Editor   string         `yaml:"editor"`
+	Aliases  []string       `yaml:"aliases"`
+	Terminal SimpleTerminal `yaml:"terminal"`
+	MonoRepo []*MonoRepo    `yaml:"monorepo"`
 }
 
 type Editor struct {
@@ -24,17 +26,30 @@ type Editor struct {
 	Params string `yaml:"params"`
 }
 
-func loadYaml() (YamlConfig, error) {
+type SimpleTerminal struct {
+	Title string `yaml:"title"`
+}
+
+type MonoRepo struct {
+	Terminal *Terminal `yaml:"terminal"`
+}
+
+type Terminal struct {
+	SubPath string `yaml:"subpath"`
+	Title   string `yaml:"title"`
+}
+
+func loadYaml() (*YamlConfig, error) {
 	ex, err := os.Executable()
 	if err != nil {
-		return YamlConfig{}, fmt.Errorf("could not find executable: %w", err)
+		return &YamlConfig{}, fmt.Errorf("could not find executable: %w", err)
 	}
 
 	filename := fmt.Sprintf("%s.yml", ex)
 
 	f, err := os.Open(filename)
 	if err != nil {
-		return YamlConfig{}, fmt.Errorf("could not read yaml file: %w", err)
+		return &YamlConfig{}, fmt.Errorf("could not read yaml file: %w", err)
 	}
 	defer f.Close()
 
@@ -42,15 +57,15 @@ func loadYaml() (YamlConfig, error) {
 	decoder := yaml.NewDecoder(f)
 	err = decoder.Decode(&cfg)
 	if err != nil {
-		return YamlConfig{}, fmt.Errorf("could new decode yaml: %w", err)
+		return &YamlConfig{}, fmt.Errorf("could new decode yaml: %w", err)
 	}
 
 	err = cfg.Validate()
 	if err != nil {
-		return YamlConfig{}, fmt.Errorf("could not validate yaml: %w", err)
+		return &YamlConfig{}, fmt.Errorf("could not validate yaml: %w", err)
 	}
 
-	return cfg, nil
+	return &cfg, nil
 }
 
 func (ycfg *YamlConfig) Validate() error {
@@ -84,4 +99,21 @@ func (ycfg *YamlConfig) Validate() error {
 	}
 
 	return nil
+}
+
+func (ycfg *YamlConfig) String() string {
+	return fmt.Sprintf("editors: %v\n\nrepoes:%v", ycfg.Editors, ycfg.Repoes)
+}
+
+func (e *Editor) String() string {
+	return fmt.Sprintf("\nName: %s, Paramas:%s", e.Name, e.Params)
+}
+
+func (r *Repo) String() string {
+	return fmt.Sprintf("\n- Name: %s\n  Editor: %s\n  Path: %s\n  Aliases: %v\n  Terminal: %v\n  MonoRepo: %+v",
+		r.Name, r.Editor, r.Path, r.Aliases, r.Terminal, r.MonoRepo)
+}
+
+func (m *MonoRepo) String() string {
+	return fmt.Sprintf("\n    Terminal: %+v", m.Terminal)
 }
