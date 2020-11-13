@@ -55,6 +55,7 @@ func Execute(cfg *config.Config) {
 
 	rootCmd.AddCommand(buildCmd(cfg))
 	rootCmd.AddCommand(getDirCmd(cfg))
+	rootCmd.AddCommand(getTabTitleCmd(cfg))
 	rootCmd.AddCommand(editorCmd(cfg))
 
 	err := rootCmd.Execute()
