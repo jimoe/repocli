@@ -13,12 +13,12 @@ type YamlConfig struct {
 }
 
 type Repo struct {
-	Name     string         `yaml:"name"`
-	Path     string         `yaml:"path"`
-	Editor   string         `yaml:"editor"`
-	Aliases  []string       `yaml:"aliases"`
-	Terminal SimpleTerminal `yaml:"terminal"`
-	MonoRepo []*MonoRepo    `yaml:"monorepo"`
+	Name     string      `yaml:"name"`
+	Path     string      `yaml:"path"`
+	Editor   string      `yaml:"editor"`
+	Aliases  []string    `yaml:"aliases"`
+	Terminal *Terminal   `yaml:"terminal"`
+	MonoRepo []*MonoRepo `yaml:"monorepo"`
 }
 
 type Editor struct {
@@ -26,17 +26,13 @@ type Editor struct {
 	Params string `yaml:"params"`
 }
 
-type SimpleTerminal struct {
-	Title string `yaml:"title"`
-}
-
 type MonoRepo struct {
+	SubPath  string    `yaml:"subpath"`
 	Terminal *Terminal `yaml:"terminal"`
 }
 
 type Terminal struct {
-	SubPath string `yaml:"subpath"`
-	Title   string `yaml:"title"`
+	Title string `yaml:"title"`
 }
 
 func loadYaml() (*YamlConfig, error) {
@@ -106,14 +102,18 @@ func (ycfg *YamlConfig) String() string {
 }
 
 func (e *Editor) String() string {
-	return fmt.Sprintf("\nName: %s, Paramas:%s", e.Name, e.Params)
+	return fmt.Sprintf("\n{ Name: %s, Paramas:%s }", e.Name, e.Params)
 }
 
 func (r *Repo) String() string {
-	return fmt.Sprintf("\n- Name: %s\n  Editor: %s\n  Path: %s\n  Aliases: %v\n  Terminal: %v\n  MonoRepo: %+v",
+	return fmt.Sprintf("\n- Name: %s\n  Editor: %s\n  Path: %s\n  Aliases: %v\n  Terminal: %v\n  MonoRepo: %v",
 		r.Name, r.Editor, r.Path, r.Aliases, r.Terminal, r.MonoRepo)
 }
 
 func (m *MonoRepo) String() string {
-	return fmt.Sprintf("\n    Terminal: %+v", m.Terminal)
+	return fmt.Sprintf("\n  - SubPath: %s\n    Terminal: %+v", m.SubPath, m.Terminal)
+}
+
+func (t *Terminal) String() string {
+	return fmt.Sprintf("{ Title: %s }", t.Title)
 }

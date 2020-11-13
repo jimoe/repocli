@@ -31,9 +31,18 @@ repoes:
     aliases:
       - some
 			- some-repo
+    terminal:
+      title: SOME
   - name:    another-repo-name
     path:    /home/username/code/another-repo-name
     editor:  code
+    monorepo:
+			- subpath: packages/name
+				terminal:
+          title: A name
+			- subpath: packages/whatever
+				terminal:
+          title: A whatever
 `
 
 func Execute(cfg *config.Config) {
