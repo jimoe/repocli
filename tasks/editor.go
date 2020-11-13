@@ -10,7 +10,7 @@ import (
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
-func Editor(cfg *config.Config, alias aliases.Alias) {
+func Editor(cfg *config.Config, alias aliases.Alias, returnDir bool) {
 	var found bool
 	var repo *config.Repo
 	if found, repo = cfg.GetRepo(alias); !found {
@@ -31,8 +31,9 @@ func Editor(cfg *config.Config, alias aliases.Alias) {
 		os.Exit(1)
 	}
 
-	// send the path to bash so it can cd to it
-	fmt.Println(repo.Path)
+	if returnDir {
+		fmt.Println(repo.Path)
+	}
 }
 
 // We validate the config on startup, so we know there will be an editor to find
