@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 
-	"github.com/jimoe/editor-and-change-dir/aliases"
+	"github.com/jimoe/editor-and-change-dir/arguments"
 )
 
 type Config struct {
@@ -23,7 +23,7 @@ func Load() (*Config, error) {
 	return cfg, nil
 }
 
-func (cfg *Config) GetRepo(theAlias aliases.Alias) (bool, *Repo) {
+func (cfg *Config) GetRepo(theAlias *arguments.Alias) (bool, *Repo) {
 	alias := theAlias.String()
 
 	for _, r := range cfg.Repoes {

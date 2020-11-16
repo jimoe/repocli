@@ -1,4 +1,4 @@
-package aliases
+package arguments
 
 import (
 	"fmt"

@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/jimoe/editor-and-change-dir/aliases"
+	"github.com/jimoe/editor-and-change-dir/arguments"
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
@@ -50,7 +50,7 @@ func Execute(cfg *config.Config) {
 		Use:     cfg.CliName,
 		Version: cfg.Version,
 		Short:   "Cli to handle repoes",
-		Long:    fmt.Sprintf(longDescription, aliases.ValidAliasChars),
+		Long:    fmt.Sprintf(longDescription, arguments.ValidAliasChars),
 	}
 
 	rootCmd.AddCommand(buildCmd(cfg))

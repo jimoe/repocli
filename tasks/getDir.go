@@ -3,11 +3,11 @@ package tasks
 import (
 	"fmt"
 
-	"github.com/jimoe/editor-and-change-dir/aliases"
+	"github.com/jimoe/editor-and-change-dir/arguments"
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
-func GetDir(cfg *config.Config, alias aliases.Alias) {
+func GetDir(cfg *config.Config, alias *arguments.Alias) {
 	var found bool
 	var repo *config.Repo
 	if found, repo = cfg.GetRepo(alias); !found {

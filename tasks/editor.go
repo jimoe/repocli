@@ -6,11 +6,11 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/jimoe/editor-and-change-dir/aliases"
+	"github.com/jimoe/editor-and-change-dir/arguments"
 	"github.com/jimoe/editor-and-change-dir/config"
 )
 
-func Editor(cfg *config.Config, alias aliases.Alias, returnDir bool) {
+func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) {
 	var found bool
 	var repo *config.Repo
 	if found, repo = cfg.GetRepo(alias); !found {
@@ -31,7 +31,7 @@ func Editor(cfg *config.Config, alias aliases.Alias, returnDir bool) {
 		os.Exit(1)
 	}
 
-	if returnDir {
+	if shouldReturnDir {
 		fmt.Println(repo.Path)
 	}
 }
