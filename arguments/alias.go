@@ -2,26 +2,22 @@ package arguments
 
 import (
 	"fmt"
-	"regexp"
 )
 
-type Alias string
+type Alias struct {
+	str
+}
 
 const ValidAliasChars = "a-z-"
 
+func NewAlias(s string) *Alias {
+	return &Alias{str(s)}
+}
+
 func (a *Alias) Validate() error {
-	if !onlyValidChars(a.String(), ValidAliasChars) {
+	if !a.onlyValidChars(ValidAliasChars) {
 		return fmt.Errorf("illegal character in <aliases> (%s)", ValidAliasChars)
 	}
 
 	return nil
-}
-
-func (a *Alias) String() string {
-	return string(*a)
-}
-
-func onlyValidChars(s, legal string) bool {
-	regStr := fmt.Sprintf(`^[%s]+$`, legal)
-	return regexp.MustCompile(regStr).MatchString(s)
 }

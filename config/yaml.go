@@ -84,7 +84,7 @@ func (ycfg *YamlConfig) Validate() error {
 			return fmt.Errorf("missing 'path' in repo: %v", r)
 		}
 
-		p := arguments.Path(r.Path)
+		p := arguments.NewPath(r.Path)
 		if err := p.Validate(); err != nil {
 			return fmt.Errorf("path not valid: %w (%v)", err, r)
 		}
@@ -103,7 +103,7 @@ func (ycfg *YamlConfig) Validate() error {
 
 		if len(r.MonoRepo) > 0 {
 			for _, m := range r.MonoRepo {
-				sp := arguments.SubPath{Path: arguments.Path(m.SubPath)}
+				sp := arguments.NewSubPath(m.SubPath)
 				if err := sp.Validate(); err != nil {
 					return fmt.Errorf("supath not valid: %w (%v)", err, r)
 				}

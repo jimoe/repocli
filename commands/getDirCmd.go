@@ -21,14 +21,14 @@ func getDirCmd(cfg *config.Config) *cobra.Command {
 		DisableFlagsInUseLine: true,
 
 		Run: func(cmd *cobra.Command, args []string) {
-			alias := arguments.Alias(args[0])
+			alias := arguments.NewAlias(args[0])
 			if err := alias.Validate(); err != nil {
 				fmt.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
 				os.Exit(1)
 			}
 
-			tasks.GetDir(cfg, &alias)
+			tasks.GetDir(cfg, alias)
 		},
 	}
 }

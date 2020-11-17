@@ -24,14 +24,14 @@ func editorCmd(cfg *config.Config) *cobra.Command {
 				os.Exit(1)
 			}
 
-			alias := arguments.Alias(args[0])
+			alias := arguments.NewAlias(args[0])
 			if err := alias.Validate(); err != nil {
 				fmt.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
 				os.Exit(1)
 			}
 
-			tasks.Editor(cfg, &alias, shouldReturnDir)
+			tasks.Editor(cfg, alias, shouldReturnDir)
 		},
 	}
 

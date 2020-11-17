@@ -24,14 +24,14 @@ func getTabTitleCmd(cfg *config.Config) *cobra.Command {
 		DisableFlagsInUseLine: true,
 
 		Run: func(cmd *cobra.Command, args []string) {
-			path := arguments.Path(args[0])
+			path := arguments.NewPath(args[0])
 			if err := path.Validate(); err != nil {
 				fmt.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
 				os.Exit(1)
 			}
 
-			tasks.GetTabTitle(cfg, &path)
+			tasks.GetTabTitle(cfg, path)
 		},
 	}
 }
