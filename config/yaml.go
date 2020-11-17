@@ -5,6 +5,8 @@ import (
 	"os"
 
 	"gopkg.in/yaml.v3"
+
+	"github.com/jimoe/editor-and-change-dir/arguments"
 )
 
 type YamlConfig struct {
@@ -82,6 +84,12 @@ func (ycfg *YamlConfig) Validate() error {
 			return fmt.Errorf("missing 'path' in repo: %v", r)
 		}
 
+		p := arguments.Path(r.Path)
+		if err := p.Validate(); err != nil {
+			return fmt.Errorf("path not valid: %w (%v)", err, r)
+		}
+
+		// validate that the given editor exists in the editor-list
 		var found bool
 		for _, e := range ycfg.Editors {
 			if r.Editor == e.Name {
@@ -91,6 +99,15 @@ func (ycfg *YamlConfig) Validate() error {
 		}
 		if !found {
 			return fmt.Errorf("editor in repo not found in editor-list: %s", r.Editor)
+		}
+
+		if len(r.MonoRepo) > 0 {
+			for _, m := range r.MonoRepo {
+				sp := arguments.SubPath{Path: arguments.Path(m.SubPath)}
+				if err := sp.Validate(); err != nil {
+					return fmt.Errorf("supath not valid: %w (%v)", err, r)
+				}
+			}
 		}
 	}
 
