@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/jimoe/editor-and-change-dir/arguments"
 )
@@ -23,15 +24,16 @@ func Load() (*Config, error) {
 	return cfg, nil
 }
 
-func (cfg *Config) GetRepo(theAlias *arguments.Alias) (bool, *Repo) {
-	alias := theAlias.String()
-
+func (cfg *Config) GetRepo(alias *arguments.Alias) (bool, *Repo) {
 	for _, r := range cfg.Repoes {
-		if r.Name == alias {
+		if r.Name == alias.String() {
+			return true, r
+		}
+		if strings.ReplaceAll(r.Name, "-", "") == alias.String() {
 			return true, r
 		}
 		for _, a := range r.Aliases {
-			if a == alias {
+			if a == alias.String() {
 				return true, r
 			}
 		}
