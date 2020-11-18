@@ -10,8 +10,19 @@ import (
 )
 
 type YamlConfig struct {
+	Cli     *Cli      `yaml:"cli"`
 	Editors []*Editor `yaml:"editors"`
 	Repoes  []*Repo   `yaml:"repoes"`
+}
+
+type Cli struct {
+	SourcePath string `yaml:"sourcePath"`
+	BinPath    string `yaml:"binPath"`
+}
+
+type Editor struct {
+	Name   string `yaml:"name"`
+	Params string `yaml:"params"`
 }
 
 type Repo struct {
@@ -21,11 +32,6 @@ type Repo struct {
 	Aliases  []string    `yaml:"aliases"`
 	Terminal *Terminal   `yaml:"terminal"`
 	MonoRepo []*MonoRepo `yaml:"monorepo"`
-}
-
-type Editor struct {
-	Name   string `yaml:"name"`
-	Params string `yaml:"params"`
 }
 
 type MonoRepo struct {
@@ -110,7 +116,11 @@ func (ycfg *YamlConfig) Validate() error {
 }
 
 func (ycfg *YamlConfig) String() string {
-	return fmt.Sprintf("editors: %v\n\nrepoes:%v", ycfg.Editors, ycfg.Repoes)
+	return fmt.Sprintf("cli: %v\n\neditors: %v\n\nrepoes:%v", ycfg.Cli, ycfg.Editors, ycfg.Repoes)
+}
+
+func (c *Cli) String() string {
+	return fmt.Sprintf("{ Source: %s, Bin: %s }", c.SourcePath, c.BinPath)
 }
 
 func (e *Editor) String() string {

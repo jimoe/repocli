@@ -12,10 +12,10 @@ func Build(cfg *config.Config) {
 	// Howto build cli manually when developing cli: `go build -o ~/bin/editorAndChangeDir cmd/main.go`
 	fmt.Println("Building cli...")
 
-	outputFile := fmt.Sprintf("%s%s", cfg.BinHome, cfg.CliName)
+	outputFile := fmt.Sprintf("%s%s", cfg.Cli.BinPath, cfg.CliName)
 
 	cmd := exec.Command("go", "build", "-o", outputFile, "cmd/main.go")
-	cmd.Dir = cfg.SourceHome
+	cmd.Dir = cfg.Cli.SourcePath
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
