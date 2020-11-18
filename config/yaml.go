@@ -84,9 +84,13 @@ func (ycfg *YamlConfig) Validate() error {
 			return fmt.Errorf("missing 'path' in repo: %v", r)
 		}
 
-		p := arguments.NewPath(r.Path)
-		if err := p.Validate(); err != nil {
+		if err := arguments.NewPath(r.Path).Validate(); err != nil {
 			return fmt.Errorf("path not valid: %w (%v)", err, r)
+		}
+		for _, m := range r.MonoRepo {
+			if err := arguments.NewSubPath(m.SubPath).Validate(); err != nil {
+				return fmt.Errorf("supath not valid: %w (%v)", err, m)
+			}
 		}
 
 		// validate that the given editor exists in the editor-list
@@ -99,15 +103,6 @@ func (ycfg *YamlConfig) Validate() error {
 		}
 		if !found {
 			return fmt.Errorf("editor in repo not found in editor-list: %s", r.Editor)
-		}
-
-		if len(r.MonoRepo) > 0 {
-			for _, m := range r.MonoRepo {
-				sp := arguments.NewSubPath(m.SubPath)
-				if err := sp.Validate(); err != nil {
-					return fmt.Errorf("supath not valid: %w (%v)", err, r)
-				}
-			}
 		}
 	}
 
