@@ -73,6 +73,13 @@ func loadYaml() (*YamlConfig, error) {
 }
 
 func (ycfg *YamlConfig) Validate() error {
+	if err := arguments.NewPath(ycfg.Cli.SourcePath).Validate(); err != nil {
+		return fmt.Errorf("cli.sourcePath not valid: %w", err)
+	}
+	if err := arguments.NewPath(ycfg.Cli.BinPath).Validate(); err != nil {
+		return fmt.Errorf("cli.binPath not valid: %w", err)
+	}
+
 	for _, e := range ycfg.Editors {
 		if e.Name == "" {
 			return fmt.Errorf("missing name in editor: %v", e)
