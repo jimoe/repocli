@@ -12,7 +12,7 @@ import (
 )
 
 func editorCmd(cfg *config.Config) *cobra.Command {
-	eCmd := &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   fmt.Sprintf(`editor <alias>`),
 		Short: "Open repo associated with <alias> in the editor defined in the repo-config",
 		Args:  cobra.ExactArgs(1),
@@ -35,12 +35,12 @@ func editorCmd(cfg *config.Config) *cobra.Command {
 		},
 	}
 
-	eCmd.Flags().BoolP(
+	cmd.Flags().BoolP(
 		"returndir",
 		"d",
 		false,
 		"If you want to return the homedir of the repo for use in your shell",
 	)
 
-	return eCmd
+	return cmd
 }
