@@ -11,41 +11,30 @@ import (
 	"github.com/jimoe/editor-and-change-dir/tasks"
 )
 
-const shortDescription = "Get the terminal tab title that is associated with the given <full path> (pwd)."
+const shortDescription = "Get the terminal tab titles for all repoes or the one that is associated with the given full path."
 
 func getTabTitleCmd(cfg *config.Config) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "gettabtitle <full path>", // TODO: oppdatere denne
+		Use:   fmt.Sprintf("gettabtitles"),
 		Short: shortDescription,
 		Long:  shortDescription + " If path is not found then nothing is returned",
 
-		Args: cobra.RangeArgs(0, 1),
+		Args: cobra.ExactArgs(0),
 
 		Run: func(cmd *cobra.Command, args []string) {
-			returnList, err := cmd.Flags().GetBool("list")
+			specific, err := cmd.Flags().GetString("specific")
 			if err != nil {
 				fmt.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
 				os.Exit(1)
 			}
 
-			if returnList {
-				if len(args) > 0 {
-					fmt.Printf("Error: Do not enter path when the list flag is set\n\n")
-					_ = cmd.Usage()
-					os.Exit(1)
-				}
+			if specific == "" {
 				tasks.GetTabTitleList(cfg)
 				return
 			}
 
-			if len(args) < 1 {
-				fmt.Printf("Error: You need to add the path as a parameter\n\n")
-				_ = cmd.Usage()
-				os.Exit(1)
-			}
-
-			path := arguments.NewPath(args[0])
+			path := arguments.NewPath(specific)
 			if err := path.Validate(); err != nil {
 				fmt.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
@@ -56,11 +45,11 @@ func getTabTitleCmd(cfg *config.Config) *cobra.Command {
 		},
 	}
 
-	cmd.Flags().BoolP(
-		"list",
-		"l",
-		false,
-		"If you want to return a list of all paths and corresponding tab-titles for use in your shell",
+	cmd.Flags().StringP(
+		"specific",
+		"",
+		"",
+		"get tab-title for one specific full path (without trailing slash)",
 	)
 
 	return cmd
