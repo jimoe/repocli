@@ -15,26 +15,25 @@ const shortDescription = "Get the terminal tab titles for all repoes or the one 
 
 func getTabTitleCmd(cfg *config.Config) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   fmt.Sprintf("gettabtitles"),
+		Use:   fmt.Sprintf("tabtitle"),
 		Short: shortDescription,
 		Long:  shortDescription + " If path is not found then nothing is returned",
-
-		Args: cobra.ExactArgs(0),
+		Args:  cobra.ExactArgs(0),
 
 		Run: func(cmd *cobra.Command, args []string) {
-			specific, err := cmd.Flags().GetString("specific")
+			pathFlagValue, err := cmd.Flags().GetString("path")
 			if err != nil {
 				fmt.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
 				os.Exit(1)
 			}
 
-			if specific == "" {
+			if pathFlagValue == "" {
 				tasks.GetTabTitleList(cfg)
 				return
 			}
 
-			path := arguments.NewPath(specific)
+			path := arguments.NewPath(pathFlagValue)
 			if err := path.Validate(); err != nil {
 				fmt.Printf("Error: %s\n\n", err.Error())
 				_ = cmd.Usage()
@@ -46,7 +45,7 @@ func getTabTitleCmd(cfg *config.Config) *cobra.Command {
 	}
 
 	cmd.Flags().StringP(
-		"specific",
+		"path",
 		"",
 		"",
 		"get tab-title for one specific full path (without trailing slash)",

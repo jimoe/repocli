@@ -16,6 +16,7 @@ func editorCmd(cfg *config.Config) *cobra.Command {
 		Use:   fmt.Sprintf(`editor <alias>`),
 		Short: "Open repo associated with <alias> in the editor defined in the repo-config",
 		Args:  cobra.ExactArgs(1),
+
 		Run: func(cmd *cobra.Command, args []string) {
 			shouldReturnDir, err := cmd.Flags().GetBool("returndir")
 			if err != nil {
