@@ -42,5 +42,5 @@ func packagePath(r *config.Repo, p *config.MonoRepo) string {
 }
 
 func format(path, title string) string {
-	return fmt.Sprintf("%s - %s\n", path, title)
+	return fmt.Sprintf("%s;%s\n", path, title)
 }
