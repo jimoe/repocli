@@ -12,9 +12,11 @@ import (
 )
 
 func editorCmd(cfg *config.Config) *cobra.Command {
+	const description = "Open repo associated with <alias> in the editor defined in the repo-config."
 	cmd := &cobra.Command{
 		Use:   fmt.Sprintf(`editor <alias>`),
-		Short: "Open repo associated with <alias> in the editor defined in the repo-config",
+		Short: description,
+		Long:  description + " The name of the repo (exact or with all hyphens removed) can also be used.",
 		Args:  cobra.ExactArgs(1),
 
 		Run: func(cmd *cobra.Command, args []string) {
