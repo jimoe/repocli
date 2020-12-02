@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/jimoe/editor-and-change-dir/arguments"
+	"github.com/jimoe/repocli/arguments"
 )
 
 type Config struct {

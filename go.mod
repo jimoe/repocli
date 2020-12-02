@@ -1,4 +1,4 @@
-module github.com/jimoe/editor-and-change-dir
+module github.com/jimoe/repocli
 
 go 1.14
 

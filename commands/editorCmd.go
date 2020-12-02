@@ -6,9 +6,9 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/jimoe/editor-and-change-dir/arguments"
-	"github.com/jimoe/editor-and-change-dir/config"
-	"github.com/jimoe/editor-and-change-dir/tasks"
+	"github.com/jimoe/repocli/arguments"
+	"github.com/jimoe/repocli/config"
+	"github.com/jimoe/repocli/tasks"
 )
 
 func editorCmd(cfg *config.Config) *cobra.Command {

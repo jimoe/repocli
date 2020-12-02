@@ -6,8 +6,8 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/jimoe/editor-and-change-dir/arguments"
-	"github.com/jimoe/editor-and-change-dir/config"
+	"github.com/jimoe/repocli/arguments"
+	"github.com/jimoe/repocli/config"
 )
 
 func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) {

@@ -6,7 +6,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"github.com/jimoe/editor-and-change-dir/arguments"
+	"github.com/jimoe/repocli/arguments"
 )
 
 type YamlConfig struct {

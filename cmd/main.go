@@ -5,8 +5,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"github.com/jimoe/editor-and-change-dir/commands"
-	"github.com/jimoe/editor-and-change-dir/config"
+	"github.com/jimoe/repocli/commands"
+	"github.com/jimoe/repocli/config"
 )
 
 func main() {

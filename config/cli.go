@@ -7,7 +7,7 @@ type CliConfig struct {
 
 func getCliConfig() *CliConfig {
 	return &CliConfig{
-		CliName: "editorAndChangeDir",
+		CliName: "repocli",
 		Version: "v1.0.0",
 	}
 }

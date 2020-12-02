@@ -6,8 +6,8 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/jimoe/editor-and-change-dir/arguments"
-	"github.com/jimoe/editor-and-change-dir/config"
+	"github.com/jimoe/repocli/arguments"
+	"github.com/jimoe/repocli/config"
 )
 
 const longDescription = `Cli to simplify jobs regarding repoes.

@@ -3,8 +3,8 @@ package tasks
 import (
 	"fmt"
 
-	"github.com/jimoe/editor-and-change-dir/arguments"
-	"github.com/jimoe/editor-and-change-dir/config"
+	"github.com/jimoe/repocli/arguments"
+	"github.com/jimoe/repocli/config"
 )
 
 func GetDir(cfg *config.Config, alias *arguments.Alias) {

@@ -3,10 +3,10 @@ package commands
 import (
 	"fmt"
 
-	"github.com/jimoe/editor-and-change-dir/config"
+	"github.com/jimoe/repocli/config"
 	"github.com/spf13/cobra"
 
-	"github.com/jimoe/editor-and-change-dir/tasks"
+	"github.com/jimoe/repocli/tasks"
 )
 
 func buildCmd(cfg *config.Config) *cobra.Command {
