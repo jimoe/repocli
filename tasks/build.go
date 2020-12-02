@@ -8,7 +8,7 @@ import (
 	"github.com/jimoe/repocli/config"
 )
 
-func Build(cfg *config.Config) {
+func Build(cfg *config.Config) error {
 	// Howto build cli manually when developing cli: `go build -o ~/bin/repocli cmd/main.go`
 	fmt.Println("Building cli...")
 
@@ -21,7 +21,8 @@ func Build(cfg *config.Config) {
 	cmd.Stderr = os.Stderr
 
 	if err := cmd.Run(); err != nil {
-		fmt.Printf("Error: Failed to build cli: %w\n", err)
-		os.Exit(1)
+		return fmt.Errorf("failed to build cli: %w", err)
 	}
+
+	return nil
 }

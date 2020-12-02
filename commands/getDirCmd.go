@@ -1,9 +1,6 @@
 package commands
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/spf13/cobra"
 
 	"github.com/jimoe/repocli/arguments"
@@ -22,12 +19,13 @@ func getDirCmd(cfg *config.Config) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			alias := arguments.NewAlias(args[0])
 			if err := alias.Validate(); err != nil {
-				fmt.Printf("Error: %s\n\n", err.Error())
-				_ = cmd.Usage()
-				os.Exit(1)
+				exit(err, cmd)
 			}
 
-			tasks.GetDir(cfg, alias)
+			err := tasks.GetDir(cfg, alias)
+			if err != nil {
+				exit(err, nil)
+			}
 		},
 	}
 }

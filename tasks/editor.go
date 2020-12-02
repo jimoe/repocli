@@ -10,12 +10,11 @@ import (
 	"github.com/jimoe/repocli/config"
 )
 
-func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) {
+func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) error {
 	var found bool
 	var repo *config.Repo
 	if found, repo = cfg.GetRepo(alias); !found {
-		fmt.Printf("  -- '%s' is not in config", alias)
-		return
+		return fmt.Errorf("'%s' is not in config", alias)
 	}
 
 	editor, params := getEditor(cfg.Editors, repo)
@@ -27,13 +26,13 @@ func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) {
 	cmd.Stderr = nil
 
 	if err := cmd.Start(); err != nil {
-		fmt.Printf("Error: Failed to start editor (%s) for '%s': %w\n", repo.Editor, repo.Name, err)
-		os.Exit(1)
+		return fmt.Errorf("failed to start editor (%s) for '%s': %w\n", repo.Editor, repo.Name, err)
 	}
 
 	if shouldReturnDir {
 		fmt.Println(repo.Path)
 	}
+	return nil
 }
 
 // We validate the config on startup, so we know there will be an editor to find

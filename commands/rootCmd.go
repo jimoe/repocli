@@ -31,6 +31,17 @@ func Execute(cfg *config.Config) {
 
 	err := rootCmd.Execute()
 	if err != nil {
-		os.Exit(1)
+		exit(fmt.Errorf("error executing cli: %w", err), nil)
 	}
+}
+
+func exit(err error, cmd *cobra.Command) {
+	fmt.Printf("Error: %s\n", err.Error())
+
+	if cmd != nil {
+		fmt.Println()
+		_ = cmd.Usage()
+	}
+
+	os.Exit(1)
 }

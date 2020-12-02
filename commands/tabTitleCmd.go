@@ -2,7 +2,6 @@ package commands
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/spf13/cobra"
 
@@ -22,9 +21,7 @@ func tabTitleCmd(cfg *config.Config) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			pathFlagValue, err := cmd.Flags().GetString("path")
 			if err != nil {
-				fmt.Printf("Error: %s\n\n", err.Error())
-				_ = cmd.Usage()
-				os.Exit(1)
+				exit(err, cmd)
 			}
 
 			if pathFlagValue == "" {
@@ -34,9 +31,7 @@ func tabTitleCmd(cfg *config.Config) *cobra.Command {
 
 			path := arguments.NewPath(pathFlagValue)
 			if err := path.Validate(); err != nil {
-				fmt.Printf("Error: %s\n\n", err.Error())
-				_ = cmd.Usage()
-				os.Exit(1)
+				exit(err, cmd)
 			}
 
 			tasks.GetTabTitle(cfg, path)

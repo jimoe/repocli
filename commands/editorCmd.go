@@ -2,7 +2,6 @@ package commands
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/spf13/cobra"
 
@@ -22,19 +21,18 @@ func editorCmd(cfg *config.Config) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			shouldReturnDir, err := cmd.Flags().GetBool("returndir")
 			if err != nil {
-				fmt.Printf("Error: %s\n\n", err.Error())
-				_ = cmd.Usage()
-				os.Exit(1)
+				exit(err, cmd)
 			}
 
 			alias := arguments.NewAlias(args[0])
 			if err := alias.Validate(); err != nil {
-				fmt.Printf("Error: %s\n\n", err.Error())
-				_ = cmd.Usage()
-				os.Exit(1)
+				exit(err, cmd)
 			}
 
-			tasks.Editor(cfg, alias, shouldReturnDir)
+			err = tasks.Editor(cfg, alias, shouldReturnDir)
+			if err != nil {
+				exit(err, nil)
+			}
 		},
 	}
 
