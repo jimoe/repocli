@@ -35,6 +35,8 @@ func Execute(cfg *config.Config) {
 	}
 }
 
+// exit prints the error then runs os.Exit().
+// If cmd is not nil then cmd.usage() is executed before os.Exit().
 func exit(err error, cmd *cobra.Command) {
 	fmt.Printf("Error: %s\n", err.Error())
 
