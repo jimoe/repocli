@@ -26,7 +26,7 @@ func editorCmd(cfg *config.Config) *cobra.Command {
 
 			alias := arguments.NewAlias(args[0])
 			if err := alias.Validate(); err != nil {
-				exit(err, cmd)
+				exit(err, nil)
 			}
 
 			err = tasks.Editor(cfg, alias, shouldReturnDir)

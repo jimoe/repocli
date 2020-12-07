@@ -19,7 +19,7 @@ func getDirCmd(cfg *config.Config) *cobra.Command {
 		Run: func(cmd *cobra.Command, args []string) {
 			alias := arguments.NewAlias(args[0])
 			if err := alias.Validate(); err != nil {
-				exit(err, cmd)
+				exit(err, nil)
 			}
 
 			err := tasks.GetDir(cfg, alias)
