@@ -6,11 +6,11 @@ import (
 )
 
 type SubPath struct {
-	str
+	commonStr
 }
 
 func NewSubPath(s string) *SubPath {
-	return &SubPath{str(s)}
+	return &SubPath{commonStr(s)}
 }
 
 func (sp *SubPath) Validate() error {

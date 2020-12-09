@@ -6,13 +6,13 @@ import (
 )
 
 type Path struct {
-	str
+	commonStr
 }
 
 const ValidPathChars = "a-zA-Z0-9-_/."
 
 func NewPath(s string) *Path {
-	return &Path{str(s)}
+	return &Path{commonStr(s)}
 }
 
 func (p *Path) Validate() error {

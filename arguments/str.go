@@ -5,17 +5,17 @@ import (
 	"regexp"
 )
 
-type str string
+type commonStr string
 
-func (s *str) String() string {
+func (s *commonStr) String() string {
 	return string(*s)
 }
 
-func (s *str) subStr(first, last int) string {
+func (s *commonStr) subStr(first, last int) string {
 	return string([]rune(s.String())[first:last])
 }
 
-func (s *str) onlyValidChars(legal string) bool {
+func (s *commonStr) onlyValidChars(legal string) bool {
 	regStr := fmt.Sprintf(`^[%s]+$`, legal)
 	return regexp.MustCompile(regStr).MatchString(s.String())
 }
