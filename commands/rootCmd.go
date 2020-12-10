@@ -29,10 +29,7 @@ func Execute(cfg *config.Config) {
 	rootCmd.AddCommand(editorCmd(cfg))
 	rootCmd.AddCommand(configCmd(cfg))
 
-	err := rootCmd.Execute()
-	if err != nil {
-		exit(fmt.Errorf("error executing cli: %w", err), nil)
-	}
+	_ = rootCmd.Execute()
 }
 
 // exit prints the error then runs os.Exit().

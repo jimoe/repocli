@@ -1,12 +1,15 @@
 package tasks
 
 import (
+	"errors"
 	"fmt"
+	"os"
 
+	"github.com/jimoe/repocli/arguments"
 	"github.com/jimoe/repocli/config"
 )
 
-var example = `Yaml config
+const configDescription = `Yaml config
 Place config in same dir and with the same name as the executable. Just add '.yml' to the filename.
 
 For the 'editors' object:
@@ -14,7 +17,11 @@ For the 'editors' object:
 	If 'params' includes the string '<path>' then it will be replaced with the repo path.
 
 EXAMPLE:
+`
 
+// const configSeeExample = `You may always see the example running 'repocli config --example'`
+
+const configExample = `
 editors:
 	-	name: goland
 		params: nosplash <path>
@@ -39,9 +46,17 @@ repoes:
 			- subpath: packages/whatever
 				terminal:
           title: A whatever
-
 `
 
 func ConfigExample(cfg *config.Config) {
-	fmt.Print(example)
+	fmt.Printf("%s	%s\n", configDescription, configExample)
+}
+
+func ConfigInit(cfg *config.Config, path *arguments.Path) error {
+	if _, err := os.Stat(cfg.Cli.BinPath); os.IsNotExist(err) {
+		return errors.New("given <path> does not exist")
+	}
+	fmt.Println("just testing")
+
+	return nil
 }
