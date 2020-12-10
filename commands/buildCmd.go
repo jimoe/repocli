@@ -9,7 +9,7 @@ import (
 	"github.com/jimoe/repocli/tasks"
 )
 
-func buildCmd(cfg *config.Config) *cobra.Command {
+func createBuildCmd(cfg *config.Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   fmt.Sprintf("build"),
 		Short: "Rebuild this cli from source",

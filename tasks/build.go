@@ -9,13 +9,15 @@ import (
 )
 
 func Build(cfg *config.Config) error {
-	// Howto build cli manually when developing cli: `go build -o ~/bin/repocli cmd/main.go`
 	fmt.Println("Building cli...")
+	return build(cfg.Cli.BinPath, cfg.Cli.SourcePath, cfg.CliName)
+}
 
-	outputFile := fmt.Sprintf("%s/%s", cfg.Cli.BinPath, cfg.CliName)
+func build(binPath, sourcePath, cliName string) error {
+	outputFile := fmt.Sprintf("%s/%s", binPath, cliName)
 
 	cmd := exec.Command("go", "build", "-o", outputFile, "cmd/main.go")
-	cmd.Dir = cfg.Cli.SourcePath
+	cmd.Dir = sourcePath
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

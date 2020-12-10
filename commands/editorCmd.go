@@ -10,7 +10,7 @@ import (
 	"github.com/jimoe/repocli/tasks"
 )
 
-func editorCmd(cfg *config.Config) *cobra.Command {
+func createEditorCmd(cfg *config.Config) *cobra.Command {
 	const description = "Open repo associated with <alias> in the editor defined in the repo-config."
 	cmd := &cobra.Command{
 		Use:   fmt.Sprintf(`editor <alias>`),

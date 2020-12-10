@@ -8,7 +8,7 @@ import (
 	"github.com/jimoe/repocli/tasks"
 )
 
-func getDirCmd(cfg *config.Config) *cobra.Command {
+func createGetDirCmd(cfg *config.Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   "getdir <alias>",
 		Short: `Get the homedir of the repo associated with the given <alias>`,

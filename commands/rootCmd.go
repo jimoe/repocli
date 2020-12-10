@@ -23,11 +23,14 @@ func Execute(cfg *config.Config) {
 		Long:    fmt.Sprintf(longDescription, arguments.ValidAliasChars),
 	}
 
-	rootCmd.AddCommand(buildCmd(cfg))
-	rootCmd.AddCommand(getDirCmd(cfg))
-	rootCmd.AddCommand(tabTitleCmd(cfg))
-	rootCmd.AddCommand(editorCmd(cfg))
-	rootCmd.AddCommand(configCmd(cfg))
+	rootCmd.AddCommand(createBuildCmd(cfg))
+	rootCmd.AddCommand(createGetDirCmd(cfg))
+	rootCmd.AddCommand(createTabTitleCmd(cfg))
+	rootCmd.AddCommand(createEditorCmd(cfg))
+	configCmd := createConfigCmd(cfg)
+	configCmd.AddCommand(createConfigExampleCmd(cfg))
+	configCmd.AddCommand(createConfigInitCmd(cfg))
+	rootCmd.AddCommand(configCmd)
 
 	_ = rootCmd.Execute()
 }

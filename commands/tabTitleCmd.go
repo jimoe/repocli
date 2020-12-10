@@ -10,7 +10,7 @@ import (
 	"github.com/jimoe/repocli/tasks"
 )
 
-func tabTitleCmd(cfg *config.Config) *cobra.Command {
+func createTabTitleCmd(cfg *config.Config) *cobra.Command {
 	const description = "Get the terminal tab titles for all repoes or the one that is associated with the given full path."
 	cmd := &cobra.Command{
 		Use:   fmt.Sprintf("tabtitle"),
