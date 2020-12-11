@@ -10,14 +10,8 @@ import (
 )
 
 type YamlConfig struct {
-	Cli     *Cli      `yaml:"cli"`
 	Editors []*Editor `yaml:"editors"`
 	Repoes  []*Repo   `yaml:"repoes"`
-}
-
-type Cli struct {
-	SourcePath string `yaml:"sourcePath"`
-	BinPath    string `yaml:"binPath"`
 }
 
 type Editor struct {
@@ -73,13 +67,6 @@ func loadYaml() (*YamlConfig, error) {
 }
 
 func (ycfg *YamlConfig) Validate() error {
-	if err := arguments.NewPath(ycfg.Cli.SourcePath).Validate(); err != nil {
-		return fmt.Errorf("cli.sourcePath not valid: %w", err)
-	}
-	if err := arguments.NewPath(ycfg.Cli.BinPath).Validate(); err != nil {
-		return fmt.Errorf("cli.binPath not valid: %w", err)
-	}
-
 	for _, e := range ycfg.Editors {
 		if e.Name == "" {
 			return fmt.Errorf("missing name in editor: %v", e)
@@ -123,11 +110,7 @@ func (ycfg *YamlConfig) Validate() error {
 }
 
 func (ycfg *YamlConfig) String() string {
-	return fmt.Sprintf("cli: %v\n\neditors: %v\n\nrepoes:%v", ycfg.Cli, ycfg.Editors, ycfg.Repoes)
-}
-
-func (c *Cli) String() string {
-	return fmt.Sprintf("{ Source: %s, Bin: %s }", c.SourcePath, c.BinPath)
+	return fmt.Sprintf("editors: %v\n\nrepoes:%v", ycfg.Editors, ycfg.Repoes)
 }
 
 func (e *Editor) String() string {

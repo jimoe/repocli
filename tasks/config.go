@@ -53,7 +53,7 @@ func ConfigExample(cfg *config.Config) {
 }
 
 func ConfigInit(cfg *config.Config, path *arguments.Path) error {
-	if _, err := os.Stat(cfg.Cli.BinPath); os.IsNotExist(err) {
+	if _, err := os.Stat(path.String()); os.IsNotExist(err) {
 		return errors.New("given <path> does not exist")
 	}
 	fmt.Println("just testing")
