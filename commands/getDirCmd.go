@@ -11,7 +11,7 @@ import (
 func createGetDirCmd(cfg *config.Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   "getdir <alias>",
-		Short: `Get the homedir of the repo associated with the given <alias>`,
+		Short: `Get the root directory of the repo associated with the given <alias>`,
 		Args:  cobra.ExactArgs(1),
 
 		DisableFlagsInUseLine: true,

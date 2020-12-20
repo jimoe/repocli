@@ -15,7 +15,7 @@ func createConfigCmd(cfg *config.Config) *cobra.Command {
 
 	return &cobra.Command{
 		Use:   "config",
-		Short: fmt.Sprintf("%s. Run '%s config --help' for details", description, cfg.CliName),
+		Short: fmt.Sprintf("%s. Run '%s help config' for details", description, cfg.CliName),
 		Long:  description,
 		Args:  cobra.ExactArgs(0),
 	}
