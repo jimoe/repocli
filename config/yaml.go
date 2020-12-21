@@ -37,14 +37,7 @@ type Terminal struct {
 	Title string `yaml:"title"`
 }
 
-func loadYaml() (*YamlConfig, error) {
-	ex, err := os.Executable()
-	if err != nil {
-		return &YamlConfig{}, fmt.Errorf("could not find executable: %w", err)
-	}
-
-	filename := fmt.Sprintf("%s.yml", ex)
-
+func loadYaml(filename string) (*YamlConfig, error) {
 	f, err := os.Open(filename)
 	if err != nil {
 		return &YamlConfig{}, fmt.Errorf("could not read yaml file: %w", err)

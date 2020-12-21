@@ -2,25 +2,43 @@ package config
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/jimoe/repocli/arguments"
 )
 
 type Config struct {
-	*CliConfig
+	CliName string
+	Version string
+	Yaml    struct {
+		Path            string
+		Filename        string
+		PathAndFilename string
+	}
 	*YamlConfig
 }
 
 func Load() (*Config, error) {
-	cli := getCliConfig()
+	userConfigDir, err := os.UserConfigDir()
+	if err != nil {
+		return &Config{}, fmt.Errorf("could not get os user-specific config directory. Message: %w", err)
+	}
 
-	yaml, err := loadYaml()
+	cfg := &Config{}
+	cfg.CliName = "repocli"
+	cfg.Version = "v1.0.0"
+	cfg.Yaml.Filename = "config.yml"
+	cfg.Yaml.Path = fmt.Sprintf("%s/%s", userConfigDir, cfg.CliName)
+	cfg.Yaml.PathAndFilename = fmt.Sprintf("%s/%s", cfg.Yaml.Path, cfg.Yaml.Filename)
+
+	yaml, err := loadYaml(cfg.Yaml.PathAndFilename)
 	if err != nil {
 		return &Config{}, fmt.Errorf("yaml: %w", err)
 	}
 
-	cfg := &Config{cli, yaml}
+	cfg.YamlConfig = yaml
+
 	return cfg, nil
 }
 

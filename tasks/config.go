@@ -1,12 +1,10 @@
 package tasks
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
 
-	"github.com/jimoe/repocli/arguments"
 	"github.com/jimoe/repocli/config"
 )
 
@@ -55,17 +53,16 @@ func ConfigExample(cfg *config.Config) {
 	fmt.Printf("%s	%s\n", configDescription, configExample)
 }
 
-func ConfigInit(cfg *config.Config, path *arguments.Path) error {
-	if _, err := os.Stat(path.String()); os.IsNotExist(err) {
-		return errors.New("given <path> does not exist")
+func ConfigInit(cfg *config.Config) error {
+	if err := os.MkdirAll(cfg.Yaml.Path, 0775); err != nil {
+		return fmt.Errorf("could not make config directory: %w", err)
 	}
 
-	filename := fmt.Sprintf("%s/%s.yml", path, cfg.CliName)
-	if err := ioutil.WriteFile(filename, []byte(configExample), 0644); err != nil {
-		return fmt.Errorf("could not write example config to file: %w", err)
+	if err := ioutil.WriteFile(cfg.Yaml.PathAndFilename, []byte(configExample), 0644); err != nil {
+		return fmt.Errorf("could not write config file: %w", err)
 	}
 
-	fmt.Printf("Config file is saved at '%s'. Edit it to suit your repoes.\n", path)
+	fmt.Printf("Config file is saved in '%s'. Edit it to suit your repoes.\n", cfg.Yaml.Path)
 	fmt.Printf("You may always see the the example config later running '%s config example'\n", cfg.CliName)
 
 	return nil
