@@ -35,18 +35,32 @@ func createConfigExampleCmd(cfg *config.Config) *cobra.Command {
 }
 
 func createConfigInitCmd(cfg *config.Config) *cobra.Command {
-	return &cobra.Command{
+	cmd := &cobra.Command{
 		Use:   "init",
-		Short: `Make a config file based on the example in you os user specific config dir`,
+		Short: `Write config file based on the example in you os user specific config dir`,
 		Args:  cobra.ExactArgs(0),
 
 		DisableFlagsInUseLine: true,
 
 		Run: func(cmd *cobra.Command, args []string) {
-			err := tasks.ConfigInit(cfg)
+			forceOverwrite, err := cmd.Flags().GetBool("force")
+			if err != nil {
+				exit(err, cmd)
+			}
+
+			err = tasks.ConfigInit(cfg, forceOverwrite)
 			if err != nil {
 				exit(err, nil)
 			}
 		},
 	}
+
+	cmd.Flags().BoolP(
+		"force",
+		"",
+		false,
+		"If config file already exists, this will force the example config to overwrite the existing config.",
+	)
+
+	return cmd
 }

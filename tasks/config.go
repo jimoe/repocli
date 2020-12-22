@@ -1,6 +1,7 @@
 package tasks
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -53,9 +54,15 @@ func ConfigExample(cfg *config.Config) {
 	fmt.Printf("%s	%s\n", configDescription, configExample)
 }
 
-func ConfigInit(cfg *config.Config) error {
+func ConfigInit(cfg *config.Config, forceOverwrite bool) error {
 	if err := os.MkdirAll(cfg.Yaml.Path, 0775); err != nil {
 		return fmt.Errorf("could not make config directory: %w", err)
+	}
+
+	if !forceOverwrite {
+		if _, err := os.Stat(cfg.Yaml.PathAndFilename); err == nil {
+			return errors.New("config file already exists. I refuse to replace it! You may force it by adding '--force'")
+		}
 	}
 
 	if err := ioutil.WriteFile(cfg.Yaml.PathAndFilename, []byte(configExample), 0644); err != nil {
