@@ -44,5 +44,5 @@ func exit(err error, cmd *cobra.Command) {
 		_ = cmd.Usage()
 	}
 
-	os.Exit(1)
+	os.Exit(2)
 }

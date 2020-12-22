@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	log "github.com/sirupsen/logrus"
-
 	"github.com/jimoe/repocli/commands"
 	"github.com/jimoe/repocli/config"
 )
@@ -14,7 +12,8 @@ import (
 func main() {
 	cfg, err := config.Load()
 	if err != nil && isFatalError(err) {
-		log.Fatal(fmt.Errorf("config: %w", err))
+		fmt.Printf("config: %s", err.Error())
+		os.Exit(1)
 	}
 
 	commands.Execute(cfg)
