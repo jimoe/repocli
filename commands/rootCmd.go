@@ -30,6 +30,7 @@ func Execute(cfg *config.Config) {
 	configCmd := createConfigCmd(cfg)
 	configCmd.AddCommand(createConfigExampleCmd(cfg))
 	configCmd.AddCommand(createConfigInitCmd(cfg))
+	configCmd.AddCommand(configWhereCmd(cfg))
 	rootCmd.AddCommand(configCmd)
 
 	_ = rootCmd.Execute()

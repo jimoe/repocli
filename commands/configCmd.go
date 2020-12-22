@@ -64,3 +64,17 @@ func createConfigInitCmd(cfg *config.Config) *cobra.Command {
 
 	return cmd
 }
+
+func configWhereCmd(cfg *config.Config) *cobra.Command {
+	return &cobra.Command{
+		Use:   "where",
+		Short: "write path to where the config is/will be stored",
+		Args:  cobra.ExactArgs(0),
+
+		DisableFlagsInUseLine: true,
+
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println(cfg.Yaml.PathAndFilename)
+		},
+	}
+}
