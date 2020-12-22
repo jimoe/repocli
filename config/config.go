@@ -44,20 +44,28 @@ func Load() (cfg *Config, err error) {
 	return cfg, nil
 }
 
-func (cfg *Config) GetRepo(alias *arguments.Alias) (bool, *Repo) {
+type RepoNotFoundError struct {
+	Message string
+}
+
+func (e *RepoNotFoundError) Error() string {
+	return e.Message
+}
+
+func (cfg *Config) GetRepo(alias *arguments.Alias) (*Repo, error) {
 	for _, r := range cfg.Repoes {
 		if r.Name == alias.String() {
-			return true, r
+			return r, nil
 		}
 		if strings.ReplaceAll(r.Name, "-", "") == alias.String() {
-			return true, r
+			return r, nil
 		}
 		for _, a := range r.Aliases {
 			if a == alias.String() {
-				return true, r
+				return r, nil
 			}
 		}
 	}
 
-	return false, &Repo{}
+	return &Repo{}, &RepoNotFoundError{Message: fmt.Sprintf("'%s' not in config", alias.String())}
 }

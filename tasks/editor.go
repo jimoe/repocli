@@ -11,10 +11,9 @@ import (
 )
 
 func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) error {
-	var found bool
-	var repo *config.Repo
-	if found, repo = cfg.GetRepo(alias); !found {
-		return fmt.Errorf("'%s' is not in config", alias)
+	repo, err := cfg.GetRepo(alias)
+	if err != nil {
+		return err
 	}
 
 	editor, params := getEditor(cfg.Editors, repo)

@@ -1,6 +1,7 @@
 package commands
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -37,7 +38,14 @@ func Execute(cfg *config.Config) {
 // exit prints the error then runs os.Exit().
 // If cmd is not nil then cmd.usage() is executed before os.Exit().
 func exit(err error, cmd *cobra.Command) {
-	fmt.Printf("Error: %s\n", err.Error())
+	prefix := "Error: "
+
+	var e *config.RepoNotFoundError
+	if errors.As(err, &e) {
+		prefix = ""
+	}
+
+	fmt.Printf("%s%s\n", prefix, err.Error())
 
 	if cmd != nil {
 		fmt.Println()
