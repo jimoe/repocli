@@ -27,7 +27,7 @@ Make sure the install directory is in you PATH, then verify by running `repocli 
 
 ## Practical usage
 
-`repocli edtitor <repo-name/alias>` works out of the box, but if you want to change directory or change terminal tab title this can only be done in the shell itself.  I use **bash**, and here are som example usage in bash,
+`repocli editor <repo-name/alias>` works out of the box, but if you want to change directory or change terminal tab title this can only be done in the shell itself.  I use **bash**, and here are som example usage you may put in your `.bashrc`
 
 ### Bash aliases
 
@@ -59,6 +59,8 @@ ec() {
 }
 ```
 
+You may then run for example `e somealias` or `c somealias` given that *somealias* is the name or an alias of a repo in your config-file (or even if *some-alias* is he name of your repo)
+
 ### Set terminal tab title in bash
 ```shell
 setTabTitleList() {
@@ -80,9 +82,14 @@ getTabTitleFromList() {
 }
 setTabTitle() {
   local title=$(getTabTitleFromList)
+  if [ -z "$title" ]; then
+    title=$(pwd|rev|cut -d "/" -f 1-2|rev)
+  fi
   echo -en "\e]0;$title\a"
 }
 PROMPT_COMMAND=setTabTitle
 ```
+
+This should not affect your PROMPT (PS1) and it will set the tab title every time the prompt is writen
 
 # Example config
