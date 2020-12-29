@@ -2,7 +2,7 @@
 
 Command Line Interface (**CLI**) meant to make it easier to work with multiple **repo**sitories
 
-It is written in [go](https://golang.org/) (golang)
+It is written in [go](https://golang.org/) (golang), so it should be able to run on all systems, but it is only tested on Ubuntu 20.04
 
 Edit a YAML config file to describe your repositories.
 
@@ -16,14 +16,12 @@ After you build this cli run *repocli help* for all details
 
 ## Build
 
-As this cli is written in [go](https://golang.org/) it should be able to run on all systems, but it is only tested on Ubuntu 20.04.
-
 If you do not have go installed you can follow go's [install instructions](https://golang.org/doc/install) to install it.  It is quite simple.
 
 Download this repo with git: `git clone git@github.com:jimoe/repocli.git`
 
 run `make build` to build it the default directory (~/bin)
-or `make build /some/direcotory` if you want to install it somewhere else
+or `sudo make build /opt/repocli` if you, for example, want to install it in the */opt* directory
 
 Make sure the install directory is in you PATH, then verify by running `repocli --version`
 
@@ -70,10 +68,10 @@ setTabTitleList
 getTabTitleFromList() {
   local pwd=$(pwd -P)
   local IFS=";" # splitChar
-  local str
+  local line
   local parts
-  for str in "${tabTitleList[@]}"; do
-    read -ra parts <<< "$str" # split string into array using $IFS as split-char
+  for line in "${tabTitleList[@]}"; do
+    read -ra parts <<< "$line" # split string into array using $IFS as split-char
     if [[ "$pwd" == "${parts[0]}" ]]; then
       echo "${parts[1]}"
       break
