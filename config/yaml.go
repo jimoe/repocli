@@ -40,7 +40,7 @@ type Terminal struct {
 func loadYaml(filename string) (*YamlConfig, error) {
 	f, err := os.Open(filename)
 	if err != nil {
-		return &YamlConfig{}, fmt.Errorf("could not read yaml file: %w", err)
+		return nil, fmt.Errorf("could not read yaml file: %w", err)
 	}
 	defer f.Close()
 
@@ -48,12 +48,12 @@ func loadYaml(filename string) (*YamlConfig, error) {
 	decoder := yaml.NewDecoder(f)
 	err = decoder.Decode(&cfg)
 	if err != nil {
-		return &YamlConfig{}, fmt.Errorf("could new decode yaml: %w", err)
+		return nil, fmt.Errorf("could new decode yaml: %w", err)
 	}
 
 	err = cfg.Validate()
 	if err != nil {
-		return &YamlConfig{}, fmt.Errorf("could not validate yaml: %w", err)
+		return nil, fmt.Errorf("could not validate yaml: %w", err)
 	}
 
 	return &cfg, nil
