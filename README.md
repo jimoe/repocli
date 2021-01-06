@@ -8,9 +8,9 @@ Edit a YAML config file to describe your repositories.
 
 ## Commands
 
-* **editor** - Open repo in the editor defined for that repo
-* **getdir** - Get the root directory of a repo
-* **tabtitle** - Get terminal tab title for repo
+* **editor** (alias **e**) - Open repo in the editor defined for that repo
+* **getdir** (alias **d**) - Get the root directory of a repo
+* **tabtitle** (alias **t**) - Get terminal tab title for repo
 
 After you build this cli run *repocli help* for all details
 

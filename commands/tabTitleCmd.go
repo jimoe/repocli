@@ -13,10 +13,11 @@ import (
 func createTabTitleCmd(cfg *config.Config) *cobra.Command {
 	const description = "Get the terminal tab titles for all repoes in config or the one that is associated with the given full path."
 	cmd := &cobra.Command{
-		Use:   fmt.Sprintf("tabtitle"),
-		Short: description,
-		Long:  description + " If path is not found in config, then nothing is returned",
-		Args:  cobra.ExactArgs(0),
+		Use:     fmt.Sprintf("tabtitle"),
+		Aliases: []string{"t"},
+		Short:   description,
+		Long:    description + " If path is not found in config, then nothing is returned",
+		Args:    cobra.ExactArgs(0),
 
 		Run: func(cmd *cobra.Command, args []string) {
 			pathFlagValue, err := cmd.Flags().GetString("path")
