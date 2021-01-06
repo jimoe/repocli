@@ -93,3 +93,40 @@ PROMPT_COMMAND=setTabTitle
 This should not affect your PROMPT (PS1) and it will set the tab title every time the prompt is writen
 
 # Example config
+
+```yaml
+editors:
+  - name: goland
+    params: nosplash <path>
+  - name: code
+    params: .
+repoes:
+  - name:    some-repo-name
+    path:    /home/username/code/some-repo-name
+    editor:  goland
+    aliases:
+      - some
+      - some-repo
+    terminal:
+      title: SOME
+```
+
+It can also handle mono-repoes:
+```yaml
+  - name:    a-monorepo-name
+    path:    /home/username/code/a-monorepo-name
+    editor:  code
+    aliases:
+      - amono
+    terminal:
+      title: AMONO
+    monorepo:
+      - subpath: packages/packagename
+        terminal:
+          title: A packagename
+      - subpath: packages/whatever
+        terminal:
+          title: A whatever
+```
+
+After the cli is built you can see a full example by running `repocli config example`
