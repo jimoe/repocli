@@ -103,11 +103,11 @@ func (ycfg *YamlConfig) Validate() error {
 }
 
 func (ycfg *YamlConfig) String() string {
-	return fmt.Sprintf("editors: %v\n\nrepoes:%v", ycfg.Editors, ycfg.Repoes)
+	return fmt.Sprintf("editors: %v\nrepoes:%v", ycfg.Editors, ycfg.Repoes)
 }
 
 func (e *Editor) String() string {
-	return fmt.Sprintf("\n{ Name: %s, Paramas:%s }", e.Name, e.Params)
+	return fmt.Sprintf("\n- Name: %s\n  Paramas: %s", e.Name, e.Params)
 }
 
 func (r *Repo) String() string {

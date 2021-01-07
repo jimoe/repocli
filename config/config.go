@@ -8,12 +8,14 @@ import (
 type Config struct {
 	CliName string
 	Version string
-	Yaml    struct {
-		Filename        string
-		Path            string
-		PathAndFilename string
-	}
+	Yaml    *Yaml
 	*YamlConfig
+}
+
+type Yaml struct {
+	Filename        string
+	Path            string
+	PathAndFilename string
 }
 
 func Load() (cfg *Config, err error) {
@@ -26,6 +28,7 @@ func Load() (cfg *Config, err error) {
 		return cfg, fmt.Errorf("could not get os user-specific config directory. Message: %w", err)
 	}
 
+	cfg.Yaml = &Yaml{}
 	cfg.Yaml.Filename = "config.yml"
 	cfg.Yaml.Path = fmt.Sprintf("%s/%s", userConfigDir, cfg.CliName)
 	cfg.Yaml.PathAndFilename = fmt.Sprintf("%s/%s", cfg.Yaml.Path, cfg.Yaml.Filename)
@@ -39,4 +42,14 @@ func Load() (cfg *Config, err error) {
 	cfg.YamlConfig = yaml
 
 	return cfg, nil
+}
+
+func (cfg *Config) String() string {
+	return fmt.Sprintf("cliname: %s\nversion: %s\nyaml: %v\n%v\n",
+		cfg.CliName, cfg.Version, cfg.Yaml, cfg.YamlConfig)
+}
+
+func (y *Yaml) String() string {
+	return fmt.Sprintf("\n  Filename: %s\n  Path: %s\n  PathAndFilename: %+v",
+		y.Filename, y.Path, y.PathAndFilename)
 }
