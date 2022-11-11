@@ -97,6 +97,7 @@ ec() {
   local output=$(repocli editor --returndir $alias)
   handleRepocliOutput "$output"
 }
+alias ce=ec
 ```
 
 You may then run for example `e somealias` or `c somealias` given that *somealias* is the name or an alias of a 
@@ -104,25 +105,27 @@ repo in your config-file (or even if *some-alias* is the name of your repo)
 
 ### Set terminal tab title in bash
 ```shell
-setTabTitleList() {
-  readarray -t tabTitleList < <(repocli tabtitle)
+setRepocliTabTitleList() {
+  readarray -t tabTitleList < <(/home/jim/bin/repocli tabtitle)
 }
-setTabTitleList
-getTabTitleFromList() {
+setRepocliTabTitleList
+getRepocliTabTitleFromList() {
   local pwd=$(pwd -P)
   local IFS=";" # splitChar
   local line
-  local parts
   for line in "${tabTitleList[@]}"; do
+    local parts
     read -ra parts <<< "$line" # split string into array using $IFS as split-char
-    if [[ "$pwd" == "${parts[0]}" ]]; then
-      echo "${parts[1]}"
+    local path=${parts[0]}
+    local title=${parts[1]}
+    if [[ "$pwd" == "$path" ]]; then
+      echo "$title"
       break
     fi
   done
 }
 setTabTitle() {
-  local title=$(getTabTitleFromList)
+  local title=$(getRepocliTabTitleFromList)
   if [ -z "$title" ]; then
     title=$(pwd|rev|cut -d "/" -f 1-2|rev)
   fi
