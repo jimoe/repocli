@@ -8,7 +8,7 @@ type Alias struct {
 	commonStr
 }
 
-const ValidAliasChars = "a-z-"
+const ValidAliasChars = "a-z0-9-"
 
 func NewAlias(s string) *Alias {
 	return &Alias{commonStr(s)}
