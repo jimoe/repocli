@@ -1,4 +1,4 @@
-.PHONY: init build
+.PHONY: init build test
 
 BIN?=~/bin
 
@@ -17,3 +17,6 @@ ifneq (, $(shell which repocli))
 else
 	$(error "The cli was not found in PATH. Make sure ${BIN} is in PATH and run 'make init' again")
 endif
+
+test:
+	go test -race ./...
