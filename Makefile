@@ -5,7 +5,7 @@ BIN?=~/bin
 build:
 ifeq (found, $(shell test -d ${BIN} && echo found))
 	@echo Building cli at ${BIN}
-	@go build -o ${BIN}/repocli cmd/main.go
+	@go build -o ${BIN}/repocli cmd/repocli/main.go
 else
 	$(error "Folder '${BIN}' does not exist. You may specify path: 'make init BIN=/some/path'")
 endif
