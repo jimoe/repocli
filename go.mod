@@ -1,9 +1,9 @@
 module github.com/jimoe/repocli
 
-go 1.19
+go 1.21
 
 require (
-	github.com/spf13/cobra v1.6.1
+	github.com/spf13/cobra v1.8.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
