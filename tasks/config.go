@@ -3,7 +3,6 @@ package tasks
 import (
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/jimoe/repocli/config"
@@ -65,7 +64,7 @@ func ConfigInit(cfg *config.Config, forceOverwrite bool) error {
 		}
 	}
 
-	if err := ioutil.WriteFile(cfg.Yaml.PathAndFilename, []byte(configExample), 0644); err != nil {
+	if err := os.WriteFile(cfg.Yaml.PathAndFilename, []byte(configExample), 0644); err != nil {
 		return fmt.Errorf("could not write config file: %w", err)
 	}
 

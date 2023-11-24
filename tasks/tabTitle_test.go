@@ -1,7 +1,7 @@
 package tasks
 
 import (
-	"io/ioutil"
+	"io"
 	"os"
 	"strings"
 	"testing"
@@ -113,7 +113,7 @@ func (s *stdOutHandler) capture() {
 func (s *stdOutHandler) restore() string {
 	s.write.Close()
 
-	out, err := ioutil.ReadAll(s.read)
+	out, err := io.ReadAll(s.read)
 	if err != nil {
 		panic("failed to finalize capture stdout")
 	}

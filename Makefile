@@ -7,7 +7,7 @@ ifeq (found, $(shell test -d ${BIN} && echo found))
 	@echo Building cli at ${BIN}
 	@go build -o ${BIN}/repocli cmd/repocli/main.go
 else
-	$(error "Folder '${BIN}' does not exist. You may specify path: 'make init BIN=/some/path'")
+	$(error "Directory '${BIN}' does not exist. You may specify path: 'make init BIN=/some/path'")
 endif
 
 init: build

@@ -1,8 +1,6 @@
 package commands
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"github.com/jimoe/repocli/arguments"
@@ -13,7 +11,7 @@ import (
 func createTabTitleCmd(cfg *config.Config) *cobra.Command {
 	const description = "Get the terminal tab titles for all repoes in config or the one that is associated with the given full path."
 	cmd := &cobra.Command{
-		Use:     fmt.Sprintf("tabtitle"),
+		Use:     "tabtitle",
 		Aliases: []string{"t"},
 		Short:   description,
 		Long:    description + " If path is not found in config, then nothing is returned",

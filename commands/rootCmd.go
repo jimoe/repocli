@@ -11,7 +11,7 @@ import (
 	"github.com/jimoe/repocli/config"
 )
 
-const longDescription = `Cli to simplify jobs regarding repoes.
+const longDescription = `Cli to simplify jobs regarding repositories.
 
 An <alias> may only contain the characters %[1]s
 `

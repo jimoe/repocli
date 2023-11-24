@@ -1,8 +1,6 @@
 package commands
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 
 	"github.com/jimoe/repocli/arguments"
@@ -13,7 +11,7 @@ import (
 func createEditorCmd(cfg *config.Config) *cobra.Command {
 	const description = "Open repo associated with <alias>, or '.' for current directory, in the editor defined in the config."
 	cmd := &cobra.Command{
-		Use:     fmt.Sprintf(`editor <alias>`),
+		Use:     "editor <alias>",
 		Aliases: []string{"e"},
 		Short:   description,
 		Long:    description + "\nThe name of the repo (exact or with all hyphens removed) can also be used.",

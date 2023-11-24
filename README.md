@@ -2,7 +2,8 @@
 
 Command Line Interface (**CLI**) meant to make it easier to work with multiple **repo**sitories
 
-It is written in [go](https://golang.org/) (golang), so it should be able to run on all systems, but it is only tested on Ubuntu 20.04
+It is written in [go](https://golang.org/) (golang), so it should be able to run on all systems, but it is only tested on 
+Ubuntu 20.04 and 22.04
 
 Edit a YAML config file to describe your repositories.
 
@@ -24,7 +25,7 @@ Download this repo with git: `git clone git@github.com:jimoe/repocli.git`
 run `make build` to build it the default directory (~/bin)
 or `sudo make build /opt/repocli` if you, for example, want to install it in the */opt* directory
 
-Make sure the install directory is in you PATH, then verify by running `repocli --version`
+Make sure the 'install' directory is in you PATH, then verify by running `repocli --version`
 
 ## Example config
 
