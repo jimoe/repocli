@@ -15,7 +15,8 @@ func NewAlias(s string) *Alias {
 }
 
 func (a *Alias) Validate() error {
-	if !a.onlyValidChars(ValidAliasChars) {
+	// alias "." is allowed for open current directory
+	if !a.onlyValidChars(ValidAliasChars) && a.String() != "." {
 		return fmt.Errorf("illegal character in <alias> (%s)", ValidAliasChars)
 	}
 

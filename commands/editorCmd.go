@@ -11,7 +11,7 @@ import (
 )
 
 func createEditorCmd(cfg *config.Config) *cobra.Command {
-	const description = "Open repo associated with <alias> in the editor defined in the config."
+	const description = "Open repo associated with <alias>, or '.' for current directory, in the editor defined in the config."
 	cmd := &cobra.Command{
 		Use:     fmt.Sprintf(`editor <alias>`),
 		Aliases: []string{"e"},
