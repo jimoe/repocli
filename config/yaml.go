@@ -48,7 +48,7 @@ func loadYaml(filename string) (*YamlConfig, error) {
 	decoder := yaml.NewDecoder(f)
 	err = decoder.Decode(&cfg)
 	if err != nil {
-		return nil, fmt.Errorf("could new decode yaml: %w", err)
+		return nil, fmt.Errorf("could not decode yaml: %w", err)
 	}
 
 	err = cfg.Validate()
