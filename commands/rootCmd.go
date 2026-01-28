@@ -25,6 +25,7 @@ func Execute(cfg *config.Config) {
 	}
 
 	rootCmd.AddCommand(createGetDirCmd(cfg))
+	rootCmd.AddCommand(createGetEditorCmd(cfg))
 	rootCmd.AddCommand(createTabTitleCmd(cfg))
 	rootCmd.AddCommand(createEditorCmd(cfg))
 	configCmd := createConfigCmd(cfg)

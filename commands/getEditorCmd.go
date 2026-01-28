@@ -1,0 +1,32 @@
+package commands
+
+import (
+	"github.com/spf13/cobra"
+
+	"github.com/jimoe/repocli/arguments"
+	"github.com/jimoe/repocli/config"
+	"github.com/jimoe/repocli/tasks"
+)
+
+func createGetEditorCmd(cfg *config.Config) *cobra.Command {
+	return &cobra.Command{
+		Use:     "geteditor <alias>",
+		Aliases: []string{"d"},
+		Short:   `Get the editor execution command of the repo associated with the given <alias>`,
+		Args:    cobra.ExactArgs(1),
+
+		DisableFlagsInUseLine: true,
+
+		Run: func(cmd *cobra.Command, args []string) {
+			alias := arguments.NewAlias(args[0])
+			if err := alias.Validate(); err != nil {
+				exit(err, nil)
+			}
+
+			err := tasks.GetEditor(cfg, alias)
+			if err != nil {
+				exit(err, nil)
+			}
+		},
+	}
+}
