@@ -16,6 +16,7 @@ type YamlConfig struct {
 
 type Editor struct {
 	Name   string `yaml:"name"`
+	Cmd    string `yaml:"cmd"` // execution command
 	Params string `yaml:"params"`
 }
 

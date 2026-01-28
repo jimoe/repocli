@@ -14,20 +14,26 @@ func GetEditor(cfg *config.Config, alias *arguments.Alias) error {
 		return err
 	}
 
-	editor, params := getEditorCmd(cfg.Editors, repo)
+	editorCmd, params := getEditorCmd(cfg.Editors, repo)
 
-	// send the editor execution command (sans path) to bash
-	fmt.Printf("%s %s", editor, strings.Join(params, " "))
+	fmt.Printf("%s %s", editorCmd, strings.Join(params, " "))
 	return nil
 }
 
 // We validate the config on startup, so we know there will be an editor to find
-func getEditorCmd(editors []*config.Editor, repo *config.Repo) (editorName string, params []string) {
+func getEditorCmd(editors []*config.Editor, repo *config.Repo) (cmd string, params []string) {
 	for _, e := range editors {
 		if e.Name == repo.Editor {
 			// ignore path
 			paramStr := strings.ReplaceAll(e.Params, "<path>", "")
-			return e.Name, strings.Split(paramStr, " ")
+
+			cmd = e.Cmd
+			// handle backward compatibility from before 'Cmd' was added
+			if cmd == "" {
+				cmd = e.Name
+			}
+
+			return cmd, strings.Split(paramStr, " ")
 		}
 	}
 

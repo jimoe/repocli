@@ -31,16 +31,16 @@ func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) er
 		}
 	}
 
-	editor, params := getEditor(cfg.Editors, repo)
+	editorCmd, params := getEditor(cfg.Editors, repo)
 
-	cmd := exec.Command(editor, params...)
+	cmd := exec.Command(editorCmd, params...)
 	cmd.Dir = repo.Path
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = nil
 	cmd.Stderr = nil
 
 	if err := cmd.Start(); err != nil {
-		return fmt.Errorf("failed to start editor (%s) for '%s': %w\n", repo.Editor, repo.Name, err)
+		return fmt.Errorf("failed to start editorCmd (%s) for '%s': %w\n", repo.Editor, repo.Name, err)
 	}
 
 	if shouldReturnDir {
@@ -50,11 +50,18 @@ func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) er
 }
 
 // We validate the config on startup, so we know there will be an editor to find
-func getEditor(editors []*config.Editor, repo *config.Repo) (editorName string, params []string) {
+func getEditor(editors []*config.Editor, repo *config.Repo) (cmd string, params []string) {
 	for _, e := range editors {
 		if e.Name == repo.Editor {
 			paramStr := strings.ReplaceAll(e.Params, "<path>", repo.Path)
-			return e.Name, strings.Split(paramStr, " ")
+
+			cmd = e.Cmd
+			// handle backward compatibility from before 'Cmd' was added
+			if cmd == "" {
+				cmd = e.Name
+			}
+
+			return cmd, strings.Split(paramStr, " ")
 		}
 	}
 

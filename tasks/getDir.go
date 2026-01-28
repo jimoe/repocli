@@ -13,7 +13,6 @@ func GetDir(cfg *config.Config, alias *arguments.Alias) error {
 		return err
 	}
 
-	// send the path to bash so it can cd to it
 	fmt.Println(repo.Path)
 	return nil
 }
