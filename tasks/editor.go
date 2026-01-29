@@ -31,7 +31,7 @@ func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) er
 		}
 	}
 
-	editorCmd, params := getEditor(cfg.Editors, repo, false)
+	editorCmd, params := getEditor(cfg.Editors, repo, true)
 
 	cmd := exec.Command(editorCmd, params...)
 	cmd.Dir = repo.Path
@@ -50,13 +50,11 @@ func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) er
 }
 
 // We validate the config on startup, so we know there will be an editor to find
-func getEditor(editors []*config.Editor, repo *config.Repo, ignorePath bool) (cmd string, params []string) {
+func getEditor(editors []*config.Editor, repo *config.Repo, replacePath bool) (cmd string, params []string) {
 	for _, e := range editors {
 		if e.Name == repo.Editor {
-			var paramStr string
-			if ignorePath {
-				paramStr = strings.ReplaceAll(e.Params, "<path>", "")
-			} else {
+			paramStr := e.Params
+			if replacePath {
 				paramStr = strings.ReplaceAll(e.Params, "<path>", repo.Path)
 			}
 

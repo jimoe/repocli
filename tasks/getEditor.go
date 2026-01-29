@@ -14,7 +14,7 @@ func GetEditor(cfg *config.Config, alias *arguments.Alias) error {
 		return err
 	}
 
-	editorCmd, params := getEditor(cfg.Editors, repo, true)
+	editorCmd, params := getEditor(cfg.Editors, repo, false)
 
 	fmt.Printf("%s %s", editorCmd, strings.Join(params, " "))
 	return nil
