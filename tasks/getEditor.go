@@ -14,7 +14,10 @@ func GetEditor(cfg *config.Config, alias *arguments.Alias) error {
 		return err
 	}
 
-	editorCmd, params := getEditor(cfg.Editors, repo, false)
+	editorCmd, params, err := getEditor(cfg.Editors, repo)
+	if err != nil {
+		return fmt.Errorf("error getting editor: %w", err)
+	}
 
 	fmt.Printf("%s %s", editorCmd, strings.Join(params, " "))
 	return nil
