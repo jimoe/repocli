@@ -9,7 +9,7 @@ import (
 )
 
 func GetEditor(cfg *config.Config, alias *arguments.Alias) error {
-	repo, err := cfg.GetRepo(alias)
+	repo, _, err := cfg.GetRepo(alias)
 	if err != nil {
 		return err
 	}

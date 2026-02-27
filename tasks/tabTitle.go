@@ -7,6 +7,8 @@ import (
 	"github.com/jimoe/repocli/config"
 )
 
+// GetTabTitle prints the terminal tab title for the repo associated
+// with the given full path.
 func GetTabTitle(cfg *config.Config, path *arguments.Path) {
 	for _, r := range cfg.Repoes {
 		if r.Path == path.String() && r.Terminal != nil {
@@ -23,6 +25,7 @@ func GetTabTitle(cfg *config.Config, path *arguments.Path) {
 	}
 }
 
+// GetTabTitleList prints the terminal tab titles for all repos in config.
 func GetTabTitleList(cfg *config.Config) {
 	for _, r := range cfg.Repoes {
 		if r.Terminal != nil {

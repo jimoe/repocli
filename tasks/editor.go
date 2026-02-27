@@ -25,7 +25,7 @@ func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) er
 			Editor: cfg.Editors[0].Name, // assume the first one is the preferred one
 		}
 	} else {
-		repo, err = cfg.GetRepo(alias)
+		repo, _, err = cfg.GetRepo(alias)
 		if err != nil {
 			return err
 		}

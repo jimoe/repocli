@@ -46,7 +46,8 @@ repoes:
       title: SOME
 ```
 
-It can also handle mono-repoes:
+It can also handle mono-repoes.
+This also works for a project root containing multiple repository-folders.
 ```yaml
   - name:    a-monorepo-name
     path:    /home/username/code/a-monorepo-name
@@ -57,6 +58,8 @@ It can also handle mono-repoes:
       title: AMONO
     monorepo:
       - subpath: packages/packagename
+        aliases:
+          - pname
         terminal:
           title: A packagename
       - subpath: packages/whatever

@@ -8,11 +8,16 @@ import (
 )
 
 func GetDir(cfg *config.Config, alias *arguments.Alias) error {
-	repo, err := cfg.GetRepo(alias)
+	repo, subPath, err := cfg.GetRepo(alias)
 	if err != nil {
 		return err
 	}
 
-	fmt.Println(repo.Path)
+	fullPath := repo.Path
+	if subPath != "" {
+		fullPath = fmt.Sprintf("%s/%s", repo.Path, subPath)
+	}
+
+	fmt.Println(fullPath)
 	return nil
 }

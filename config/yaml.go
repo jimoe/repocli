@@ -31,6 +31,7 @@ type Repo struct {
 
 type MonoRepo struct {
 	SubPath  string    `yaml:"subpath"`
+	Aliases  []string  `yaml:"aliases"`
 	Terminal *Terminal `yaml:"terminal"`
 }
 
@@ -117,7 +118,7 @@ func (r *Repo) String() string {
 }
 
 func (m *MonoRepo) String() string {
-	return fmt.Sprintf("\n  - SubPath: %s\n    Terminal: %+v", m.SubPath, m.Terminal)
+	return fmt.Sprintf("\n  - SubPath: %s\n    Aliases: %s\n    Terminal: %+v", m.SubPath, m.Aliases, m.Terminal)
 }
 
 func (t *Terminal) String() string {
