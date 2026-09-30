@@ -1,7 +1,6 @@
 package tasks
 
 import (
-	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -15,20 +14,9 @@ func Editor(cfg *config.Config, alias *arguments.Alias, shouldReturnDir bool) er
 	var repo *config.Repo
 	var err error
 
-	if alias.String() == "." {
-		if len(cfg.Editors) == 0 {
-			return errors.New("no editors listed in config")
-		}
-		repo = &config.Repo{
-			Name:   "CurrentDirectory",
-			Path:   ".",
-			Editor: cfg.Editors[0].Name, // assume the first one is the preferred one
-		}
-	} else {
-		repo, _, err = cfg.GetRepo(alias)
-		if err != nil {
-			return err
-		}
+	repo, _, err = cfg.GetRepo(alias)
+	if err != nil {
+		return err
 	}
 
 	editorCmd, params, err := getEditor(cfg.Editors, repo)

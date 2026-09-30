@@ -1,6 +1,7 @@
 package config
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
@@ -16,6 +17,18 @@ func (e *RepoNotFoundError) Error() string {
 }
 
 func (cfg *Config) GetRepo(alias *arguments.Alias) (*Repo, string, error) {
+	if alias.String() == "." {
+		if len(cfg.Editors) == 0 {
+			return nil, "", errors.New("no editors listed in config")
+		}
+		r := &Repo{
+			Name:   "CurrentDirectory",
+			Path:   ".",
+			Editor: cfg.Editors[0].Name, // assume the first one is the preferred one
+		}
+		return r, "", nil
+	}
+
 	for _, r := range cfg.Repoes {
 		if r.Name == alias.String() {
 			return r, "", nil
